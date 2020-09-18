@@ -1,0 +1,53 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/Personal_header">
+
+        <EditTextPreference
+            android:icon="@drawable/name"
+            app:key="Name"
+            app:title="Your Name"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            android:icon="@drawable/sound"
+            app:key="Sound"
+            app:title="Sound"
+            app:defaultValue="true"/>
+
+        <Preference
+            android:icon="@drawable/sync"
+            android:key="SyncNow"
+            android:title="Sync Now" />
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="More">
+
+        <Preference
+            android:icon="@drawable/help"
+            android:key="Help"
+            android:title="Help" />
+
+        <Preference
+            android:icon="@drawable/contact_email"
+            android:key="ContactUs"
+            android:title="Contact Us" />
+
+        <Preference
+            android:icon="@drawable/privacy_policy"
+            android:key="PrivacyPolicy"
+            android:title="Privacy Policy" />
+
+        <Preference
+            android:icon="@drawable/feedback"
+            android:key="Feedback"
+            android:title="Feedback" />
+
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

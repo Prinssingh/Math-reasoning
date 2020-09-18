@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#33333f</color>
+    <color name="colorAccent">#33333f</color>
+    <color name="colorPrimaryDark">#33333f</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="nextbgcolor">#00c2cb</color>
+    <color name="Chutiyapa">#696973</color>
+    <color name="Gold">#FFD700</color>
+    <color name="Silver">#c0c0c0</color>
+    <color name="Bronze">#CF853D</color>
+</resources>

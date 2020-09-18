@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1009190761338",
+    "firebase_url": "https://math-reasoning.firebaseio.com",
+    "project_id": "math-reasoning",
+    "storage_bucket": "math-reasoning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009190761338:android:ff7e61b045d0b565a59cc3",
+        "android_client_info": {
+          "package_name": "com.Maths.mathematicalreasoning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009190761338-drrt6pgjr57fgrkd47u89sckiohvpaam.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Maths.mathematicalreasoning",
+            "certificate_hash": "f060681d2fca81fe7c0d8f5f0ad8f2c75675bedd"
+          }
+        },
+        {
+          "client_id": "1009190761338-gvgnc4ed08idp7ad878nia3pi63e5d0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV8eVQJA3ovZUjBIojuaeUOv7eBJDwZBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009190761338-gvgnc4ed08idp7ad878nia3pi63e5d0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
