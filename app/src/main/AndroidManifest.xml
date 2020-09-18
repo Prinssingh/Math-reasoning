@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.Maths.mathematicalreasoning">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -14,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GlobalRanking"></activity>
+        <activity android:name=".GlobalRanking"/>
         <!--
          android:debuggable="true"
           tools:ignore="HardcodedDebugMode"
@@ -79,7 +80,7 @@
             android:name=".SyncService"
             android:enabled="true"
             android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"></service>
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>
