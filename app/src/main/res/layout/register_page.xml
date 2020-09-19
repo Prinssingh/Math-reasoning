@@ -4,45 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg">
+    android:background="@drawable/login_bg"
+    android:layout_gravity="center">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/cantora_one"
         android:text="Math Reasoning"
         android:textColor="#0a35ed"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/textView52"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView52"
+        app:layout_constraintTop_toBottomOf="@+id/textView52"
         tools:ignore="HardcodedText,MissingConstraints" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
         android:text="By The Future Programmers"
         android:textSize="8sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="HardcodedText,MissingConstraints,SmallSp" />
 
     <TextView
         android:id="@+id/textView52"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
         android:text="Welcome to "
         android:textSize="12dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.311"
+        app:layout_constraintHorizontal_bias="0.31"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -51,20 +55,23 @@
         android:layout_height="41dp"
         android:ems="10"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/confirmpwd"
-        app:layout_constraintStart_toStartOf="@+id/confirmpwd"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="367dp" />
+        app:layout_constraintEnd_toEndOf="@+id/textView2224"
+        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintStart_toStartOf="@+id/textView2224"
+        app:layout_constraintTop_toBottomOf="@+id/textView2224"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="Confirm passowrd"
-        app:layout_constraintBottom_toTopOf="@+id/confirmpwd"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="72dp" />
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/name"
@@ -72,10 +79,11 @@
         android:layout_height="41dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/email"
-        app:layout_constraintStart_toStartOf="@+id/email"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="247dp" />
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/email"
@@ -83,18 +91,20 @@
         android:layout_height="41dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="307dp" />
+        app:layout_constraintEnd_toEndOf="@+id/textView71"
+        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintStart_toStartOf="@+id/textView71"
+        app:layout_constraintTop_toBottomOf="@+id/textView71"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView71"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
-        app:layout_constraintBottom_toTopOf="@+id/email"
-        app:layout_constraintStart_toStartOf="@+id/textView2224"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/name"
         tools:ignore="MissingConstraints" />
 
@@ -104,17 +114,21 @@
         android:layout_height="41dp"
         android:ems="10"
         android:inputType="textPassword"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="67dp"
-        tools:layout_editor_absoluteY="427dp" />
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView2224"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="Password"
-        app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintStart_toStartOf="@+id/email"
         app:layout_constraintTop_toBottomOf="@+id/email"
         tools:ignore="MissingConstraints" />
 
@@ -122,50 +136,48 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
         android:text="Full Name"
-        app:layout_constraintBottom_toTopOf="@+id/name"
-        app:layout_constraintStart_toStartOf="@+id/textView71"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.183"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/te55xtView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="80dp"
         android:text="Already a member?"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Login"
-        app:layout_constraintHorizontal_bias="0.985"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/register"
         app:layout_constraintTop_toBottomOf="@+id/register"
-        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginTop="80dp"
         android:text="Login"
         android:textColor="#3E57E4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/register"
         app:layout_constraintTop_toBottomOf="@+id/register"
-        app:layout_constraintVertical_bias="0.0"
         tools:ignore="HardcodedText,MissingConstraints" />
 
     <Button
         android:id="@+id/register"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/custombutton"
         android:padding="10dp"
         android:text="Register"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="@+id/confirmpwd"
-        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="@+id/confirmpwd"
         app:layout_constraintTop_toBottomOf="@+id/confirmpwd"
         tools:ignore="HardcodedText,MissingConstraints" />
@@ -174,17 +186,14 @@
         android:id="@+id/Skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="339dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="738dp"
-        android:text="Skip >>"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:clickable="true"
         android:focusable="true"
+        android:text="Skip >>"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.961"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
 
