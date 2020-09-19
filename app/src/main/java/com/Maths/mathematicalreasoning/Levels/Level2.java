@@ -48,14 +48,13 @@ public class Level2 extends Fragment {
         }else{
             totalEnabled=0;
         }
-        Toast.makeText(getContext(),"Current levels"+enabledLevels +" Total Enabled"+totalEnabled,Toast.LENGTH_LONG).show();
-
 
 
         for(i=21;i<=totalEnabled;i++ ){
             final int j = i;
             int id= getResources().getIdentifier("button"+i, "id", requireActivity().getPackageName());
-            Button b = root.findViewById(id);
+            Button  b= new Button(getContext());
+            b = root.findViewById(id);
             b.setEnabled(true);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override

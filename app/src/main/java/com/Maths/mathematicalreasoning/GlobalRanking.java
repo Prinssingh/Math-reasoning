@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -139,6 +140,13 @@ public class GlobalRanking extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
     }
 
-
-
+    @Override
+    protected void onStart() {
+        if(!sp.getBoolean("Login",false)){
+            Intent LoginIntent = new Intent(GlobalRanking.this, CustomLogin.class);
+            startActivity(LoginIntent);
+            finish();
+        }
+        super.onStart();
+    }
 }

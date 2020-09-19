@@ -28,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
         sp=getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();
 
-        //editor.clear().commit();
+        editor.clear().commit();
 
         //Set Version name
         impFun = new ImpFunctions(getApplicationContext());
@@ -81,8 +81,8 @@ public class SplashScreen extends AppCompatActivity {
                 db.addGameLevel(new GameLevel(i, "question"+String.valueOf(i),ans[i], "hint"+String.valueOf(i), "solution"+String.valueOf(i), 0));
 
             }
-
             editor.putBoolean("DataBase", true).commit();
+            Log.d("AllLevels",""+db.getAllGameLevels());
         }catch (Exception e){finish();}
     }
 

@@ -181,7 +181,7 @@
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/share" />
+                            android:src="@drawable/share1" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -229,7 +229,7 @@
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/ranking"
+                            android:src="@drawable/ranking1"
                             tools:ignore="ContentDescription" />
 
                         <TextView

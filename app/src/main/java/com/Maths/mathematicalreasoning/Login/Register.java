@@ -3,7 +3,10 @@ package com.Maths.mathematicalreasoning.Login;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -41,11 +44,12 @@ import java.util.Objects;
 public class Register extends Fragment implements View.OnClickListener {
     private static String PreEmail;
     Button register;
-    TextView Skip, loginPage;
+    TextView Skip, loginPage,message;
     EditText email,password,confirmpwd,name;
     private FirebaseAuth mAuth;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    ProgressBar progressBar;
 
 
     public static Register newInstance() {
@@ -62,10 +66,10 @@ public class Register extends Fragment implements View.OnClickListener {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.register_page, container, false);
 
-
+        progressBar=root.findViewById(R.id.progressBar);
+        message=root.findViewById(R.id.message);
         register= root.findViewById(R.id.register);
         register.setOnClickListener(this);
-
 
         Skip =root.findViewById(R.id.Skip);
         Skip.setOnClickListener(this);
@@ -77,10 +81,35 @@ public class Register extends Fragment implements View.OnClickListener {
         password = root.findViewById(R.id.password);
         confirmpwd =root.findViewById(R.id.confirmpwd);
         name = root.findViewById(R.id.name);
+        name.requestFocus();
 
         if(PreEmail!=null){
             email.setText(PreEmail);
+            message.setVisibility(View.VISIBLE);
+            message.setTextColor(Color.parseColor("#4266f5"));
+            message.setText("Email Not Found!!,\nPlease Register!!");
+            TextWatcher mtextWatcher =new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    message.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    message.setVisibility(View.GONE);
+                }
+            };
+            name.addTextChangedListener(mtextWatcher);
+            email.addTextChangedListener(mtextWatcher);
+            confirmpwd.addTextChangedListener(mtextWatcher);
+            password.addTextChangedListener(mtextWatcher);
         }
+
         mAuth = FirebaseAuth.getInstance();
         sp=requireContext().getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();
@@ -136,8 +165,19 @@ public class Register extends Fragment implements View.OnClickListener {
                 Log.d("Firebase User","Already registered");
                 Log.d("UID",""+user.getUid());
                 Log.d("Name",""+user.getDisplayName());
+                //Setup Data
+                editor.putBoolean("Login",true).commit();
+                editor.putString("User_Name",user.getDisplayName()).commit();
+                editor.putString("User_Email",user.getEmail()).commit();
+                editor.putString("User_UID",user.getUid()).commit();
+
+                Intent homeintent = new Intent(requireActivity(), DashBoard.class);
+                startActivity(homeintent);
+                requireActivity().finish();
             }
             else{
+                progressBar.setVisibility(View.VISIBLE);
+                setAllDisable();
                 final String Email = email.getText().toString();
                 final String Name = name.getText().toString();
                 final String Password = password.getText().toString();
@@ -173,10 +213,10 @@ public class Register extends Fragment implements View.OnClickListener {
                                     editor.putString("User_Name",user.getDisplayName()).commit();
                                     editor.putString("User_Email",user.getEmail()).commit();
                                     editor.putString("User_UID",user.getUid()).commit();
-                                    editor.putBoolean("Sync_Periodically",true).commit();
                                     Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
-
                                     // Goto Dash Board Activity
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    setAllEnable();
 
                                     Intent homeintent = new Intent(requireActivity(), DashBoard.class);
                                     startActivity(homeintent);
@@ -186,7 +226,9 @@ public class Register extends Fragment implements View.OnClickListener {
                                 }
                                 else {
                                     // If sign in fails, display a message to the user.
-                                    Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    setAllEnable();
+                                    Log.w("TAG", "createUserWithEmail:failed", task.getException());
                                     Toast.makeText(getContext(), "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                     try
@@ -266,9 +308,34 @@ public class Register extends Fragment implements View.OnClickListener {
             password.setError("Weak PassWord!! Use atleast 6 character password");
             password.requestFocus();
             valid=false;
+        }
+        else if(!password.getText().toString().equals(confirmpwd.getText().toString())){
+            confirmpwd.setError("Password & Confirm password are not matching!!");
+            confirmpwd.requestFocus();
+            valid=false;
 
         }
 
         return valid;
+    }
+
+    public void setAllDisable(){
+        register.setEnabled(false);
+        Skip.setEnabled(false);
+        loginPage.setEnabled(false);
+        email.setEnabled(false);
+        password.setEnabled(false);
+        confirmpwd.setEnabled(false);
+        name.setEnabled(false);
+    }
+
+    public void setAllEnable(){
+        register.setEnabled(true);
+        Skip.setEnabled(true);
+        loginPage.setEnabled(true);
+        email.setEnabled(true);
+        password.setEnabled(true);
+        confirmpwd.setEnabled(true);
+        name.setEnabled(true);
     }
 }

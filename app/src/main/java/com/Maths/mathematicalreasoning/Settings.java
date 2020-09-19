@@ -149,7 +149,7 @@ public class Settings extends AppCompatActivity {
                         if(isSyncNowAVL()) {
                             if (impFun.isConnectedToInternet()) {
                                 if (!sp.getBoolean("Login", false)) {
-                                    Intent LoginIntent = new Intent(getActivity(), LoginActivity.class);
+                                    Intent LoginIntent = new Intent(getActivity(), CustomLogin.class);
                                     startActivity(LoginIntent);
 
                                 } else {

@@ -90,8 +90,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         level=intent.getIntExtra("Level",1);
         levelScreen =intent.getBooleanExtra("LevelScreen",false);
 
-
-
         db=new DataBaseHandler(this);
         sp=getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();

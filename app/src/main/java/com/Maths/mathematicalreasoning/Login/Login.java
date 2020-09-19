@@ -1,16 +1,23 @@
 package com.Maths.mathematicalreasoning.Login;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,12 +48,13 @@ import java.util.Objects;
 
 public class Login extends Fragment implements View.OnClickListener {
     Button LoginBtn;
-    TextView Skip,forget,register;
+    TextView Skip,forget,register,message;
     EditText email,password;
     private FirebaseAuth mAuth;
     private static String PreEmail;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    ProgressBar progressBar;
 
 
     public static Login newInstance() {
@@ -57,12 +65,14 @@ public class Login extends Fragment implements View.OnClickListener {
         return new Login();
     }
 
+    @SuppressLint("SetTextI18n")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                       @Nullable Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.login_page, container, false);
 
+        progressBar=root.findViewById(R.id.progressBar);
         register= root.findViewById(R.id.register);
         register.setOnClickListener(this);
 
@@ -75,11 +85,35 @@ public class Login extends Fragment implements View.OnClickListener {
         LoginBtn =root.findViewById(R.id.Login);
         LoginBtn.setOnClickListener(this);
 
-        email =root.findViewById(R.id.name);
-        password = root.findViewById(R.id.confirmpwd);
+        email =root.findViewById(R.id.email);
+        email.requestFocus();
+        password = root.findViewById(R.id.password);
+        message=root.findViewById(R.id.message);
 
         if(PreEmail!=null){
             email.setText(PreEmail);
+            password.requestFocus();
+            message.setVisibility(View.VISIBLE);
+            message.setTextColor(Color.parseColor("#4266f5"));
+            message.setText("Email already Registered,\nPlease try Login Here!");
+            TextWatcher mtextWatcher =new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    message.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    message.setVisibility(View.GONE);
+                }
+            };
+            password.addTextChangedListener(mtextWatcher);
+            email.addTextChangedListener(mtextWatcher);
         }
 
         mAuth = FirebaseAuth.getInstance();
@@ -87,8 +121,7 @@ public class Login extends Fragment implements View.OnClickListener {
         editor=sp.edit();
 
         return root;
-
-}
+    }
 
     @Override
     public void onClick(View view) {
@@ -119,59 +152,62 @@ public class Login extends Fragment implements View.OnClickListener {
     public void LoginToApp(){
         String EmailId=email.getText().toString();
         String Password =password.getText().toString();
+        if(isValidInput()){
+            progressBar.setVisibility(View.VISIBLE);
+            setAllDisable();
+            mAuth.signInWithEmailAndPassword(EmailId,Password)
+                    .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
 
-        mAuth.signInWithEmailAndPassword(EmailId,Password)
-                .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.w("Sign in Success", task.getException());
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    Log.d("Register", "Success :");
-                    Log.d("UID",""+user.getUid());
+                                FirebaseUser user = mAuth.getCurrentUser();
 
-                    //Setup Data
-                    editor.putBoolean("Login",true).commit();
-                    editor.putString("User_Name",user.getDisplayName()).commit();
-                    editor.putString("User_Email",user.getEmail()).commit();
-                    editor.putString("User_UID",user.getUid()).commit();
-                    editor.putBoolean("Sync_Periodically",true).commit();
+                                //Setup Data
+                                assert user != null;
+                                editor.putBoolean("Login",true).commit();
+                                editor.putString("User_Name",user.getDisplayName()).commit();
+                                editor.putString("User_Email",user.getEmail()).commit();
+                                editor.putString("User_UID",user.getUid()).commit();
+                                editor.putBoolean("Sync_Periodically",true).commit();
+                                progressBar.setVisibility(View.INVISIBLE);
+                                setAllEnable();
 
-                    Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
 
-                    // Goto Dash Board Activity
+                                //Collect previous progress(Levels)
+                                GetMyProgress();
 
-                    //Collect previous progress(Levels)
+                                // Goto Dash Board Activity
+                                Intent homeintent = new Intent(requireActivity(), DashBoard.class);
+                                startActivity(homeintent);
+                                requireActivity().finish();
 
-                    GetMyProgress();
-
-                    Intent homeintent = new Intent(requireActivity(), DashBoard.class);
-                    startActivity(homeintent);
-                    requireActivity().finish();
-
-                } else {
-                    Log.w("Sign in failed", task.getException());
-                    try{
-                        throw Objects.requireNonNull(task.getException());
-                    }catch (FirebaseAuthInvalidUserException e){
-                        //Email Not found
-                        Toast.makeText(getContext(),"Email Not Found try Login!!",Toast.LENGTH_LONG).show();
-
-
-                    }catch (FirebaseAuthInvalidCredentialsException e){
-                        //Password miss Match
-                        Toast.makeText(getContext(),"Password Miss , try Reset Password",Toast.LENGTH_LONG).show();
-
-                    }catch (Exception e) {
-                        Toast.makeText(getContext(),"Exception"+e,Toast.LENGTH_LONG).show();
-                    }
+                            } else {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                setAllEnable();
+                                Log.w("Sign in failed", task.getException());
+                                try{
+                                    throw Objects.requireNonNull(task.getException());
+                                }catch (FirebaseAuthInvalidUserException e){
+                                    //Email Not found
+                                    Toast.makeText(getContext(),"Email Not Found try Login!!",Toast.LENGTH_LONG).show();
 
 
-                }
-            }
-        });
+                                }catch (FirebaseAuthInvalidCredentialsException e){
+                                    //Password miss Match
+                                    password.setError("Password dose't Matched!!");
+
+                                }catch (Exception e) {
+                                    Toast.makeText(getContext(),"Exception"+e,Toast.LENGTH_LONG).show();
+                                }
 
 
+                            }
+                        }
+                    });
+
+        }
     }
 
     public void  ChangeFragment(Fragment fragment){
@@ -219,5 +255,50 @@ public class Login extends Fragment implements View.OnClickListener {
 
 
     }
+
+    public boolean isValidInput(){
+        boolean valid=true;
+        if( email.getText().toString().isEmpty()){
+            email.setError("Empty!!");
+            email.requestFocus();
+            valid=false;
+        }
+        else if(password.getText().toString().isEmpty()){
+            password.setError("Empty!!");
+            password.requestFocus();
+            valid=false;
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+            email.setError(" Email malformed!!");
+            email.requestFocus();
+            valid=false;
+        }
+        else if(password.getText().length()<6){
+            password.setError("Weak PassWord!!");
+            password.requestFocus();
+            valid=false;
+        }
+
+        return valid;
+    }
+
+    public void setAllDisable(){
+        LoginBtn.setEnabled(false);
+        Skip.setEnabled(false);
+        forget.setEnabled(false);
+        register.setEnabled(false);
+        email.setEnabled(false);
+        password.setEnabled(false);
+
+    }
+
+    public void setAllEnable(){
+        LoginBtn.setEnabled(true);
+        Skip.setEnabled(true);
+        forget.setEnabled(true);
+        register.setEnabled(true);
+        email.setEnabled(true);
+        password.setEnabled(true);
+    }
+
 
 }
