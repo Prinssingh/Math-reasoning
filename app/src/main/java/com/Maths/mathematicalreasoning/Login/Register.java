@@ -44,7 +44,6 @@ public class Register extends Fragment implements View.OnClickListener {
     TextView Skip, loginPage;
     EditText email,password,confirmpwd,name;
     private FirebaseAuth mAuth;
-    ProgressBar progressBar;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -62,7 +61,7 @@ public class Register extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.register_page, container, false);
-        progressBar.setVisibility(View.INVISIBLE);
+
 
         register= root.findViewById(R.id.register);
         register.setOnClickListener(this);
@@ -128,7 +127,6 @@ public class Register extends Fragment implements View.OnClickListener {
 
 
         if(isValidInput()){
-            progressBar.setVisibility(View.VISIBLE);
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if(user!= null){
                 // Already Login
