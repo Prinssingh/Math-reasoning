@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.Maths.mathematicalreasoning.Login.Login;
+import com.Maths.mathematicalreasoning.Login.Register;
 
 
 public class CustomLogin extends AppCompatActivity {
@@ -15,7 +16,7 @@ public class CustomLogin extends AppCompatActivity {
         setContentView(R.layout.custom_login_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, Login.newInstance())
+                    .replace(R.id.container, Register.newInstance())
                     .commitNow();
         }
     }

@@ -105,7 +105,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
 
         button0 = findViewById(R.id.button0);
-        button1 = findViewById(R.id.button1);
+        button1 = findViewById(R.id.register);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
         button4 = findViewById(R.id.button4);
@@ -174,7 +174,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             case R.id.button0:
                 setUserDisplay("0");
                 break;
-            case R.id.button1:
+            case R.id.register:
                 setUserDisplay("1");
                 break;
             case R.id.button2:

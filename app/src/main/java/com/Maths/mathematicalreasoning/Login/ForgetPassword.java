@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class ForgetPassword extends Fragment implements View.OnClickListener {
-    EditText Password,Password_Confirm,email;
+    EditText email;
     Button   ResetPassword;
     private FirebaseAuth mAuth;
 
@@ -33,13 +33,10 @@ public class ForgetPassword extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.forget_password, container, false);
+        View root = inflater.inflate(R.layout.password_reset_page, container, false);
 
-        email=root.findViewById(R.id.email);
-        Password =root.findViewById(R.id.Password);
-        Password_Confirm=root.findViewById(R.id.Password_Confirm);
-        ResetPassword= root.findViewById(R.id.ResetPassword);
-        ResetPassword.setOnClickListener(this);
+        email=root.findViewById(R.id.confirmpwd);
+        ResetPassword =root.findViewById(R.id.register);
         mAuth = FirebaseAuth.getInstance();
 
         return root;
@@ -48,7 +45,7 @@ public class ForgetPassword extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.ResetPassword){
+        if(view.getId()==R.id.register){
             mAuth.sendPasswordResetEmail(email.getText().toString())
             .addOnCompleteListener(requireActivity(), new OnCompleteListener<Void>() {
                 @Override

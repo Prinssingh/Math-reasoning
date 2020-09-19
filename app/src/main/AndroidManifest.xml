@@ -20,15 +20,6 @@
          android:debuggable="true"
           tools:ignore="HardcodedDebugMode"
         -->
-        <receiver
-            android:name=".Restarter"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-            <intent-filter>
-                <action android:name="restartservice" />
-            </intent-filter>
-        </receiver>
 
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -47,7 +38,6 @@
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".ContactUs" />
         <activity android:name=".help" />
         <activity
             android:name=".CustomLogin"
@@ -60,27 +50,6 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
 
-        <service
-            android:name=".ScheduleNotification"
-            android:enabled="true" />
-
-        <receiver
-            android:name=".SleepingNotify"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-
-                <!-- Receives the actual messages. -->
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
-                <category android:name="com.google.android.gcm.demo.app" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".SyncService"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>

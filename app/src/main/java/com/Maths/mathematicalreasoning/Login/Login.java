@@ -1,5 +1,8 @@
 package com.Maths.mathematicalreasoning.Login;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.Maths.mathematicalreasoning.DashBoard;
 import com.Maths.mathematicalreasoning.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,10 +33,13 @@ import java.util.Objects;
 
 
 public class Login extends Fragment implements View.OnClickListener {
-    Button register,Skip,LoginBtn,forget;
+    Button LoginBtn;
+    TextView Skip,forget,register;
     EditText email,password;
     private FirebaseAuth mAuth;
     private static String PreEmail;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
 
 
@@ -61,14 +69,16 @@ public class Login extends Fragment implements View.OnClickListener {
         LoginBtn =root.findViewById(R.id.Login);
         LoginBtn.setOnClickListener(this);
 
-        email =root.findViewById(R.id.email);
-        password = root.findViewById(R.id.password);
+        email =root.findViewById(R.id.name);
+        password = root.findViewById(R.id.confirmpwd);
 
         if(PreEmail!=null){
             email.setText(PreEmail);
         }
 
         mAuth = FirebaseAuth.getInstance();
+        sp=requireContext().getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
+        editor=sp.edit();
 
         return root;
 
@@ -96,7 +106,7 @@ public class Login extends Fragment implements View.OnClickListener {
     }
     public void  ChangeFragment(Fragment fragment){
 
-        FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container,  fragment);
         fragmentTransaction.addToBackStack(null);
@@ -118,17 +128,32 @@ public class Login extends Fragment implements View.OnClickListener {
                     Log.d("Register", "Success :");
                     Log.d("UID",""+user.getUid());
 
+                    //Setup Data
+                    editor.putBoolean("Login",true).commit();
+                    editor.putString("User_Name",user.getDisplayName()).commit();
+                    editor.putString("User_Email",user.getEmail()).commit();
+                    editor.putString("User_UID",user.getUid()).commit();
+                    editor.putBoolean("Sync_Periodically",true).commit();
+                    Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
+
+                    // Goto Dash Board Activity
+
+                    Intent homeintent = new Intent(requireActivity(), DashBoard.class);
+                    startActivity(homeintent);
+                    requireActivity().finish();
+
                 } else {
                     Log.w("Sign in failed", task.getException());
                     try{
                         throw Objects.requireNonNull(task.getException());
                     }catch (FirebaseAuthInvalidUserException e){
                         //Email Not found
-                        Toast.makeText(getContext(),"Email Not Found",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Email Not Found tey Login!!",Toast.LENGTH_LONG).show();
+
 
                     }catch (FirebaseAuthInvalidCredentialsException e){
                         //Password miss Match
-                        Toast.makeText(getContext(),"Password Miss Matched",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Password Miss , try Reset Password",Toast.LENGTH_LONG).show();
 
                     }catch (Exception e) {
                         Toast.makeText(getContext(),"Exception"+e,Toast.LENGTH_LONG).show();

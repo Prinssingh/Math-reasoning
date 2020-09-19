@@ -1,5 +1,8 @@
 package com.Maths.mathematicalreasoning.Login;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +21,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.Maths.mathematicalreasoning.CustomLogin;
+import com.Maths.mathematicalreasoning.DashBoard;
+import com.Maths.mathematicalreasoning.LoginActivity;
 import com.Maths.mathematicalreasoning.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,12 +40,13 @@ import java.util.Objects;
 
 public class Register extends Fragment implements View.OnClickListener {
     private static String PreEmail;
-    Button register,Skip,LoginBtn,forget;
-    EditText email,password,name;
+    Button register;
+    TextView Skip, loginPage;
+    EditText email,password,confirmpwd,name;
     private FirebaseAuth mAuth;
     ProgressBar progressBar;
-
-
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
 
     public static Register newInstance() {
@@ -53,30 +61,30 @@ public class Register extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.register, container, false);
-        progressBar =root.findViewById(R.id.progressBar);
+        View root = inflater.inflate(R.layout.register_page, container, false);
         progressBar.setVisibility(View.INVISIBLE);
 
         register= root.findViewById(R.id.register);
         register.setOnClickListener(this);
 
-        forget =root.findViewById(R.id.forget);
-        forget.setOnClickListener(this);
 
         Skip =root.findViewById(R.id.Skip);
         Skip.setOnClickListener(this);
 
-        LoginBtn =root.findViewById(R.id.Login);
-        LoginBtn.setOnClickListener(this);
+        loginPage =root.findViewById(R.id.Login);
+        loginPage.setOnClickListener(this);
 
         email =root.findViewById(R.id.email);
         password = root.findViewById(R.id.password);
+        confirmpwd =root.findViewById(R.id.confirmpwd);
         name = root.findViewById(R.id.name);
+
         if(PreEmail!=null){
             email.setText(PreEmail);
         }
-
         mAuth = FirebaseAuth.getInstance();
+        sp=requireContext().getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
+        editor=sp.edit();
         return root;
 
     }
@@ -98,10 +106,6 @@ public class Register extends Fragment implements View.OnClickListener {
 
             break;
 
-            case R.id.forget:
-                ChangeFragment(ForgetPassword.newInstance());
-                break;
-
             case R.id.Login:
                 ChangeFragment(Login.newInstance());
                 break;
@@ -112,7 +116,7 @@ public class Register extends Fragment implements View.OnClickListener {
 
     public void  ChangeFragment(Fragment fragment){
 
-        FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container,  fragment);
         fragmentTransaction.addToBackStack(null);
@@ -143,9 +147,11 @@ public class Register extends Fragment implements View.OnClickListener {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("TAG", "createUserWithEmail:success");
+
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Log.d("Register", "Success :");
                                     Log.d("UID",""+user.getUid());
+
 
                                     //  set an Display name to  User.
                                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -160,7 +166,20 @@ public class Register extends Fragment implements View.OnClickListener {
                                                     }
                                                 }
                                             });
-                                    progressBar.setVisibility(View.INVISIBLE);
+
+                                    //Setup Data
+                                    editor.putBoolean("Login",true).commit();
+                                    editor.putString("User_Name",user.getDisplayName()).commit();
+                                    editor.putString("User_Email",user.getEmail()).commit();
+                                    editor.putString("User_UID",user.getUid()).commit();
+                                    editor.putBoolean("Sync_Periodically",true).commit();
+                                    Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
+
+                                    // Goto Dash Board Activity
+
+                                    Intent homeintent = new Intent(requireActivity(), DashBoard.class);
+                                    startActivity(homeintent);
+                                    requireActivity().finish();
 
 
                                 }
@@ -169,7 +188,6 @@ public class Register extends Fragment implements View.OnClickListener {
                                     Log.w("TAG", "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(getContext(), "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.INVISIBLE);
                                     try
                                     {
                                         throw Objects.requireNonNull(task.getException());
