@@ -50,7 +50,7 @@
         <activity android:name=".ContactUs" />
         <activity android:name=".help" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".CustomLogin"
             android:windowSoftInputMode="adjustNothing" />
 
         <meta-data

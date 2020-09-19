@@ -40,7 +40,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void run() {
 
-                Toolbar toolbar = (Toolbar) findViewById(R.id.settingToolbar);
+                Toolbar toolbar =  findViewById(R.id.settingToolbar);
                 setSupportActionBar(toolbar);
                 impFun=new ImpFunctions(getApplicationContext());
                 TextView versionName =findViewById(R.id.Version);
