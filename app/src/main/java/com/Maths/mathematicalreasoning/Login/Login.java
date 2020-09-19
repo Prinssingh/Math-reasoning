@@ -1,5 +1,6 @@
 package com.Maths.mathematicalreasoning.Login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.Maths.mathematicalreasoning.DashBoard;
 import com.Maths.mathematicalreasoning.R;
+import com.Maths.mathematicalreasoning.UserData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -28,6 +30,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -40,7 +47,6 @@ public class Login extends Fragment implements View.OnClickListener {
     private static String PreEmail;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-
 
 
     public static Login newInstance() {
@@ -109,15 +115,6 @@ public class Login extends Fragment implements View.OnClickListener {
         }
 
     }
-    public void  ChangeFragment(Fragment fragment){
-
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container,  fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-    }
 
     public void LoginToApp(){
         String EmailId=email.getText().toString();
@@ -144,6 +141,10 @@ public class Login extends Fragment implements View.OnClickListener {
 
                     // Goto Dash Board Activity
 
+                    //Collect previous progress(Levels)
+
+                    GetMyProgress();
+
                     Intent homeintent = new Intent(requireActivity(), DashBoard.class);
                     startActivity(homeintent);
                     requireActivity().finish();
@@ -169,6 +170,52 @@ public class Login extends Fragment implements View.OnClickListener {
                 }
             }
         });
+
+
+    }
+
+    public void  ChangeFragment(Fragment fragment){
+
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container,  fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+    }
+    public void GetMyProgress(){
+        DatabaseReference mdbRef;
+        final ProgressDialog progressDialog1 =new ProgressDialog(getContext());
+        progressDialog1.setMessage("Getting Your Progress.. !!");
+        progressDialog1.show();
+
+        String key =sp.getString("User_UID","");
+        mdbRef = FirebaseDatabase.getInstance().getReference().child("Users/"+key);
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                UserData user=dataSnapshot.getValue(UserData.class);
+
+                try {
+                    assert user != null;
+                    editor.putString("User_Name", user.getName()).commit();
+                    editor.putString("User_Email", user.getEmail()).commit();
+                    editor.putInt("CompletedLevels", user.getLevel()).commit();
+                    progressDialog1.setMessage("Done Getting Progress.. !!");
+                    progressDialog1.hide();
+                }catch (Exception ignored){}
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog1.setMessage("No Progress Found");
+                progressDialog1.hide();
+
+
+            }
+        };
+        mdbRef.addValueEventListener(postListener);
 
 
     }
