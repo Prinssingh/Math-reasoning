@@ -102,8 +102,12 @@ public class Register extends Fragment implements View.OnClickListener {
         switch (view.getId()){
             case R.id.register:
                 RegisterToApp();
+                break;
 
-            break;
+            case R.id.Skip:
+                Intent homeintent = new Intent(requireActivity(), DashBoard.class);
+                startActivity(homeintent);
+                requireActivity().finish();
 
             case R.id.Login:
                 ChangeFragment(Login.newInstance());
@@ -124,7 +128,6 @@ public class Register extends Fragment implements View.OnClickListener {
     }
 
     public void RegisterToApp(){
-
 
         if(isValidInput()){
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

@@ -10,24 +10,32 @@
         android:id="@+id/textView52"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="122dp"
         android:text="Welcome to "
         android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="138dp"
         android:fontFamily="@font/cantora_one"
         android:text="Math Reasoning"
         android:textColor="#0a35ed"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="@+id/textView2" />
-
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView2"
@@ -46,12 +54,15 @@
         android:id="@+id/confirmpwd"
         android:layout_width="293dp"
         android:layout_height="41dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginEnd="60dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:ignore="HardcodedText,MissingConstraints"
-        tools:layout_editor_absoluteX="58dp" />
+        tools:ignore="HardcodedText,MissingConstraints" />
 
     <TextView
         android:id="@+id/forget"
@@ -71,14 +82,18 @@
         android:id="@+id/name"
         android:layout_width="293dp"
         android:layout_height="41dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginBottom="462dp"
         android:ems="10"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/confirmpwd"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/confirmpwd"
-        tools:ignore="HardcodedText,MissingConstraints"
-        tools:layout_editor_absoluteY="270dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText,MissingConstraints" />
 
     <TextView
         android:id="@+id/textView4"
@@ -142,27 +157,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="116dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="Create one"
         android:textColor="#3E57E4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/googleSignInButton"
-        tools:ignore="MissingConstraints"
-        android:clickable="true"
-        android:focusable="true"/>
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/Login"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="429dp"
+        android:layout_marginBottom="294dp"
         android:background="@drawable/custombutton"
         android:padding="10dp"
         android:text="Login"
         android:textColor="#ffffff"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView9"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -172,12 +189,12 @@
         android:layout_marginStart="339dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="Skip >>"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText"
-        android:clickable="true"
-        android:focusable="true"/>
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

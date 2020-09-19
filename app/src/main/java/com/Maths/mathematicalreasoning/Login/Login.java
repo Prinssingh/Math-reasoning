@@ -91,6 +91,11 @@ public class Login extends Fragment implements View.OnClickListener {
                 ChangeFragment(Register.newInstance());
                  break;
 
+            case R.id.Skip:
+                Intent homeintent = new Intent(requireActivity(), DashBoard.class);
+                startActivity(homeintent);
+                requireActivity().finish();
+
             case R.id.forget:
                 ChangeFragment(ForgetPassword.newInstance());
                 break;
@@ -134,6 +139,7 @@ public class Login extends Fragment implements View.OnClickListener {
                     editor.putString("User_Email",user.getEmail()).commit();
                     editor.putString("User_UID",user.getUid()).commit();
                     editor.putBoolean("Sync_Periodically",true).commit();
+
                     Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
 
                     // Goto Dash Board Activity
@@ -148,7 +154,7 @@ public class Login extends Fragment implements View.OnClickListener {
                         throw Objects.requireNonNull(task.getException());
                     }catch (FirebaseAuthInvalidUserException e){
                         //Email Not found
-                        Toast.makeText(getContext(),"Email Not Found tey Login!!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Email Not Found try Login!!",Toast.LENGTH_LONG).show();
 
 
                     }catch (FirebaseAuthInvalidCredentialsException e){
