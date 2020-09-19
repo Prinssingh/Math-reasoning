@@ -44,7 +44,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
 
                if(!sp.getBoolean("Login",false)){
-                   Intent LoginIntent = new Intent(SplashScreen.this, LoginActivity.class);
+                   Intent LoginIntent = new Intent(SplashScreen.this, CustomLogin.class);
                    startActivity(LoginIntent);
                    finish();
                }

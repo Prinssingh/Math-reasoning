@@ -35,8 +35,8 @@ public class ForgetPassword extends Fragment implements View.OnClickListener {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.password_reset_page, container, false);
 
-        email=root.findViewById(R.id.confirmpwd);
-        ResetPassword =root.findViewById(R.id.register);
+        email=root.findViewById(R.id.email);
+        ResetPassword =root.findViewById(R.id.resetPassword);
         mAuth = FirebaseAuth.getInstance();
 
         return root;
