@@ -61,7 +61,7 @@
                             android:padding="10dp"
                             android:text="YES"
                             android:textColor="@color/colorWhite"
-                            android:textSize="20dp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
