@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -70,6 +71,7 @@ public class Settings extends AppCompatActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
+        Preference NamePreference;
         private SharedPreferences sp;
         private SharedPreferences.Editor editor;
         ImpFunctions impFun;
@@ -84,7 +86,7 @@ public class Settings extends AppCompatActivity {
 
 
             //Settings
-            EditTextPreference NamePreference = findPreference("Name");
+            NamePreference = findPreference("Name");
             final SwitchPreferenceCompat Sound =findPreference("Sound");
             final Preference SyncNow =findPreference("SyncNow");
             final Preference Help =findPreference("Help");
@@ -98,22 +100,18 @@ public class Settings extends AppCompatActivity {
 
 
             if (NamePreference != null) {
-                NamePreference.setSummaryProvider(new Preference.SummaryProvider<EditTextPreference>() {
-                    @Override
-                    public CharSequence provideSummary(EditTextPreference preference) {
-
-                        String text = preference.getText();
-                        if (TextUtils.isEmpty(text)) {
-                            return sp.getString("User_Name","User");
-                        }
-                        editor.putString("User_Name",text).apply();
-                        return text;
-                    }
-                });
+                NamePreference.setSummary(sp.getString("User_Name","Unknown User"));
                 NamePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        impFun.OnclickSound();
+                        impFun.OnclickSound();AlertDialog.Builder NamePref;
+                        if(sp.getInt("NameChanged",0)<2){
+                            ChangeName(2-sp.getInt("NameChanged",0));
+                        }
+                        else{
+                            Toast.makeText(requireContext(),"You can't change your name!!",Toast.LENGTH_LONG).show();
+                        }
+
                         return false;
                     }
                 });
@@ -218,6 +216,44 @@ public class Settings extends AppCompatActivity {
         }
 
 
+        public void ChangeName(int chance){
+
+            AlertDialog.Builder NamePref;
+            NamePref =new AlertDialog.Builder(requireContext());
+            View NameView = getLayoutInflater().inflate(R.layout.name_change,null);
+            NamePref.setView(NameView);
+
+            TextView message = NameView.findViewById(R.id.message);
+            message.setText("Chance left :"+chance);
+            final EditText Name =NameView.findViewById(R.id.name);
+            Name.setText(sp.getString("User_Name","User"));
+            Button Save =NameView.findViewById(R.id.save);
+            Button Cancle = NameView.findViewById(R.id.cancle);
+
+            final AlertDialog ShowNameChangeDialog = NamePref.create();
+            Objects.requireNonNull(ShowNameChangeDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+            ShowNameChangeDialog.show();
+            Save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!Name.getText().toString().isEmpty()) {
+                        editor.putString("User_Name",Name.getText().toString()).commit();
+                        editor.putInt("NameChanged",sp.getInt("NameChanged",0)+1).commit();
+                        NamePreference.setSummary(Name.getText().toString());
+                    }
+                    ShowNameChangeDialog.dismiss();
+                }
+            });
+            Cancle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ShowNameChangeDialog.dismiss();
+                }
+            });
+
+
+        }
 
         public boolean isSyncNowAVL(){
             if(sp.contains("LastSyncTime"))
@@ -303,8 +339,7 @@ public class Settings extends AppCompatActivity {
 
         }
 
-        private void SendMail(String Title, String Body)
-        {
+        private void SendMail(String Title, String Body) {
             String mbody ="Regarding Math-Reasoning Application.\n\n"+Body+"\n\n\nRespectfully \n"
                               +sp.getString("User_Name","User");
             Intent i = new Intent(Intent.ACTION_SEND);

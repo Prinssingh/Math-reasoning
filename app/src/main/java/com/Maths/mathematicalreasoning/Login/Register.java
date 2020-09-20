@@ -176,7 +176,7 @@ public class Register extends Fragment implements View.OnClickListener {
                 progressBar.setVisibility(View.VISIBLE);
                 setAllDisable();
                 final String Email = email.getText().toString();
-                final String Name = name.getText().toString();
+                final String Name1 = name.getText().toString();
                 final String Password = password.getText().toString();
                 mAuth.createUserWithEmailAndPassword(Email, Password)
                         .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
@@ -189,9 +189,9 @@ public class Register extends Fragment implements View.OnClickListener {
 
                                     //  set an Display name to  User.
                                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                            .setDisplayName(Name)
+                                            .setDisplayName(Name1)
                                             .build();
-                                    if (user != null) {
+
                                         user.updateProfile(profileUpdates)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
@@ -203,7 +203,7 @@ public class Register extends Fragment implements View.OnClickListener {
                                                 });
                                         //Setup Data
                                         editor.putBoolean("Login",true).commit();
-                                        editor.putString("User_Name",user.getDisplayName()).commit();
+                                        editor.putString("User_Name",Name1).commit();
                                         editor.putString("User_Email",user.getEmail()).commit();
                                         editor.putString("User_UID",user.getUid()).commit();
                                         Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
@@ -214,9 +214,7 @@ public class Register extends Fragment implements View.OnClickListener {
                                         Intent homeintent = new Intent(requireActivity(), DashBoard.class);
                                         startActivity(homeintent);
                                         requireActivity().finish();
-                                    }
-                                    else{
-                                    }
+
                                 }
                                 else {
                                     // If sign in fails, display a message to the user.

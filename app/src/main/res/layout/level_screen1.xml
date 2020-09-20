@@ -36,7 +36,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/nextbgcolor"
                 android:textSize="35sp"
-                tools:ignore="ButtonStyle,HardcodedText" />
+                 />
 
             <Button
                 android:id="@+id/button2"
@@ -173,7 +173,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button10"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -187,7 +186,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button11"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -201,7 +199,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button12"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:background="@drawable/button_style"
@@ -227,7 +224,6 @@
             android:rowCount="1">
 
             <Button
-                android:id="@+id/button13"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -241,7 +237,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button14"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -255,7 +250,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button15"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -269,7 +263,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button16"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:background="@drawable/button_style"
@@ -296,7 +289,6 @@
             android:rowCount="1">
 
             <Button
-                android:id="@+id/button17"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -310,7 +302,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button18"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -324,7 +315,6 @@
                 tools:ignore=",ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button19"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -338,7 +328,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button20"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:background="@drawable/button_style"

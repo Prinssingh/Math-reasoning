@@ -26,7 +26,6 @@
             android:rowCount="1">
 
             <Button
-                android:id="@+id/button21"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -40,7 +39,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button22"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -54,7 +52,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button23"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -68,7 +65,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button24"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:background="@drawable/button_style"
@@ -93,7 +89,6 @@
             android:rowCount="1">
 
             <Button
-                android:id="@+id/button25"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -107,7 +102,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button26"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -121,7 +115,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button27"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -135,7 +128,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button28"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:background="@drawable/button_style"
@@ -160,7 +152,6 @@
             android:rowCount="1">
 
             <Button
-                android:id="@+id/button29"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -174,7 +165,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button30"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -188,7 +178,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button31"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -202,7 +191,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button32"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:background="@drawable/button_style"
@@ -228,7 +216,6 @@
             android:rowCount="1">
 
             <Button
-                android:id="@+id/button33"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -242,7 +229,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button34"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -256,7 +242,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button35"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -270,7 +255,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button36"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:background="@drawable/button_style"
@@ -297,7 +281,6 @@
             android:rowCount="1">
 
             <Button
-                android:id="@+id/button37"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -311,7 +294,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button38"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -325,7 +307,6 @@
                 tools:ignore=",ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button39"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="15dp"
@@ -339,7 +320,6 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/button40"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:background="@drawable/button_style"

@@ -58,7 +58,6 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:id="@+id/imageView4"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             app:srcCompat="@drawable/play" />

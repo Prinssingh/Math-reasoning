@@ -3,7 +3,7 @@
 
     <PreferenceCategory app:title="@string/Personal_header">
 
-        <EditTextPreference
+        <Preference
             android:icon="@drawable/name"
             app:key="Name"
             app:title="Your Name"
@@ -18,7 +18,7 @@
         <Preference
             android:icon="@drawable/sync"
             android:key="SyncNow"
-            android:title="Sync Now" />
+            android:title="Sync Now"/>
 
 
     </PreferenceCategory>

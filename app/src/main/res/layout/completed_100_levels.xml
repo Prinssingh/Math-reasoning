@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/endposter">
+    android:background="@drawable/endposter"
+    android:gravity="center">
+
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="106dp"
         android:layout_height="83dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="540dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/success" />
@@ -25,9 +30,9 @@
         android:fontFamily="@font/cantora_one"
         android:text="Congratulations!"
         android:textColor="#0a35ed"
-        android:textSize="38dp"
+        android:textSize="35dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -38,7 +43,7 @@
         android:layout_marginTop="20dp"
         android:text="You have passed all levels"
         android:textColor="#FF9800"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/textView6"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -47,22 +52,23 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="Please wait for next Update"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textView10"
-        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/textView12"
-        android:layout_width="211dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="217dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
         android:text="If you want to see your Rank Click this button"
-        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />

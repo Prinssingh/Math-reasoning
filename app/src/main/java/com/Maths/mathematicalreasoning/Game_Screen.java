@@ -34,6 +34,7 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 
 import java.util.Objects;
 
+
 public class Game_Screen extends AppCompatActivity implements View.OnClickListener {
 
     //DataBase Handling
@@ -77,8 +78,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 setup();
             }
         });
-
-
 
     }
 
@@ -228,7 +227,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
     public void newGame() {
         if(level >impFun.getTotalLevels())
-        { 
+        {
             level=1;
             Completed();
         }
