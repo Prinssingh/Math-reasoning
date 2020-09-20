@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,6 +40,13 @@ public class GlobalRanking extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_global_ranking);
+
+        sp= getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
+        if(!sp.getBoolean("Login",false)){
+            Intent LoginIntent = new Intent(GlobalRanking.this, CustomLogin.class);
+            startActivity(LoginIntent);
+            finish();
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Global Ranking");
@@ -140,13 +148,4 @@ public class GlobalRanking extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    protected void onStart() {
-        if(!sp.getBoolean("Login",false)){
-            Intent LoginIntent = new Intent(GlobalRanking.this, CustomLogin.class);
-            startActivity(LoginIntent);
-            finish();
-        }
-        super.onStart();
-    }
 }

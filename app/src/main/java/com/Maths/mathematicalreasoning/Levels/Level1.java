@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.Maths.mathematicalreasoning.Game_Screen;
 import com.Maths.mathematicalreasoning.R;
+
+import java.util.Objects;
 
 
 public class Level1 extends Fragment {
@@ -43,7 +46,8 @@ public class Level1 extends Fragment {
 
         for(i=1;i<=totalEnabled;i++ ){
             final int j = i;
-            int id= getResources().getIdentifier("button"+i, "id", requireActivity().getPackageName());
+            int id= getResources().getIdentifier("button"+i, "id", getActivity().getPackageName());
+            Log.d("Button id",""+id);
             Button b=new Button(getContext());
             b = root.findViewById(id);
             b.setEnabled(true);

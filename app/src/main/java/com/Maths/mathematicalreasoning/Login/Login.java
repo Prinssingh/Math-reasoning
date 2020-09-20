@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +28,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.Maths.mathematicalreasoning.DashBoard;
+import com.Maths.mathematicalreasoning.ImpFunctions;
 import com.Maths.mathematicalreasoning.R;
 import com.Maths.mathematicalreasoning.UserData;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,6 +56,7 @@ public class Login extends Fragment implements View.OnClickListener {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     ProgressBar progressBar;
+    ImpFunctions impFun;
 
 
     public static Login newInstance() {
@@ -74,53 +76,60 @@ public class Login extends Fragment implements View.OnClickListener {
 
         progressBar=root.findViewById(R.id.progressBar);
         register= root.findViewById(R.id.register);
-        register.setOnClickListener(this);
-
         forget =root.findViewById(R.id.forget);
-        forget.setOnClickListener(this);
-
         Skip =root.findViewById(R.id.Skip);
-        Skip.setOnClickListener(this);
-
         LoginBtn =root.findViewById(R.id.Login);
-        LoginBtn.setOnClickListener(this);
-
         email =root.findViewById(R.id.email);
         email.requestFocus();
         password = root.findViewById(R.id.password);
         message=root.findViewById(R.id.message);
 
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+           setup();
+            }
+        });
+
+        return root;
+    }
+    @SuppressLint("CommitPrefEdits")
+    public void setup(){
+        register.setOnClickListener(this);
+        forget.setOnClickListener(this);
+        Skip.setOnClickListener(this);
+        LoginBtn.setOnClickListener(this);
+
         if(PreEmail!=null){
-            email.setText(PreEmail);
-            password.requestFocus();
-            message.setVisibility(View.VISIBLE);
-            message.setTextColor(Color.parseColor("#4266f5"));
-            message.setText("Email already Registered,\nPlease try Login Here!");
-            TextWatcher mtextWatcher =new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        email.setText(PreEmail);
+        password.requestFocus();
+        message.setVisibility(View.VISIBLE);
+        message.setTextColor(Color.parseColor("#4266f5"));
+        message.setText("Email already Registered,\nPlease try Login Here!");
+        TextWatcher mtextWatcher =new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                }
+            }
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    message.setVisibility(View.GONE);
-                }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                message.setVisibility(View.GONE);
+            }
 
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    message.setVisibility(View.GONE);
-                }
-            };
-            password.addTextChangedListener(mtextWatcher);
-            email.addTextChangedListener(mtextWatcher);
-        }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                message.setVisibility(View.GONE);
+            }
+        };
+        password.addTextChangedListener(mtextWatcher);
+        email.addTextChangedListener(mtextWatcher);
+    }
 
         mAuth = FirebaseAuth.getInstance();
         sp=requireContext().getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();
 
-        return root;
     }
 
     @Override
@@ -150,9 +159,9 @@ public class Login extends Fragment implements View.OnClickListener {
     }
 
     public void LoginToApp(){
-        String EmailId=email.getText().toString();
+        final String EmailId=email.getText().toString();
         String Password =password.getText().toString();
-        if(isValidInput()){
+        if(isValidInput() && impFun.isConnectedToInternet()){
             progressBar.setVisibility(View.VISIBLE);
             setAllDisable();
             mAuth.signInWithEmailAndPassword(EmailId,Password)
@@ -169,13 +178,11 @@ public class Login extends Fragment implements View.OnClickListener {
                                 editor.putString("User_Name",user.getDisplayName()).commit();
                                 editor.putString("User_Email",user.getEmail()).commit();
                                 editor.putString("User_UID",user.getUid()).commit();
-                                editor.putBoolean("Sync_Periodically",true).commit();
                                 progressBar.setVisibility(View.INVISIBLE);
                                 setAllEnable();
 
-                                Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
-
                                 //Collect previous progress(Levels)
+
                                 GetMyProgress();
 
                                 // Goto Dash Board Activity
@@ -186,13 +193,11 @@ public class Login extends Fragment implements View.OnClickListener {
                             } else {
                                 progressBar.setVisibility(View.INVISIBLE);
                                 setAllEnable();
-                                Log.w("Sign in failed", task.getException());
                                 try{
                                     throw Objects.requireNonNull(task.getException());
                                 }catch (FirebaseAuthInvalidUserException e){
-                                    //Email Not found
-                                    Toast.makeText(getContext(),"Email Not Found try Login!!",Toast.LENGTH_LONG).show();
-
+                                    //Email Not Found
+                                    ChangeFragment(Register.newInstance(EmailId));
 
                                 }catch (FirebaseAuthInvalidCredentialsException e){
                                     //Password miss Match
@@ -208,6 +213,11 @@ public class Login extends Fragment implements View.OnClickListener {
                     });
 
         }
+        else {
+            impFun.ShowToast(getLayoutInflater(), "No Internet Connection!!",
+                    "Please, Connect to  Internet for Register with Math Reasoning!!");
+        }
+
     }
 
     public void  ChangeFragment(Fragment fragment){
@@ -219,40 +229,45 @@ public class Login extends Fragment implements View.OnClickListener {
         fragmentTransaction.commit();
 
     }
+
     public void GetMyProgress(){
-        DatabaseReference mdbRef;
-        final ProgressDialog progressDialog1 =new ProgressDialog(getContext());
-        progressDialog1.setMessage("Getting Your Progress.. !!");
-        progressDialog1.show();
+        try{
+            DatabaseReference mdbRef;
 
-        String key =sp.getString("User_UID","");
-        mdbRef = FirebaseDatabase.getInstance().getReference().child("Users/"+key);
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            final ProgressDialog progressDialog1 =new ProgressDialog(getContext());
+            progressDialog1.setMessage("Getting Your Progress.. !!");
+            progressDialog1.show();
 
-                UserData user=dataSnapshot.getValue(UserData.class);
+            String key =sp.getString("User_UID","");
+            mdbRef = FirebaseDatabase.getInstance().getReference().child("Users/"+key);
+            ValueEventListener postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                try {
-                    assert user != null;
-                    editor.putString("User_Name", user.getName()).commit();
-                    editor.putString("User_Email", user.getEmail()).commit();
-                    editor.putInt("CompletedLevels", user.getLevel()).commit();
-                    progressDialog1.setMessage("Done Getting Progress.. !!");
+                    UserData user=dataSnapshot.getValue(UserData.class);
+
+                    try {
+                        assert user != null;
+                        editor.putString("User_Name", user.getName()).commit();
+                        editor.putString("User_Email", user.getEmail()).commit();
+                        editor.putInt("CompletedLevels", user.getLevel()).commit();
+                        progressDialog1.setMessage("Done Getting Progress.. !!");
+                        progressDialog1.hide();
+                    }catch (Exception ignored){}
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    progressDialog1.setMessage("No Progress Found");
                     progressDialog1.hide();
-                }catch (Exception ignored){}
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                progressDialog1.setMessage("No Progress Found");
-                progressDialog1.hide();
 
 
-            }
-        };
-        mdbRef.addValueEventListener(postListener);
+                }
+            };
+            mdbRef.addValueEventListener(postListener);
 
+        }
+        catch (Exception ignored){}
 
     }
 

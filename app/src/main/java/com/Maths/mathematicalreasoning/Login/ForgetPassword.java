@@ -3,6 +3,7 @@ package com.Maths.mathematicalreasoning.Login;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class ForgetPassword extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.resetPassword){
+        if(view.getId()==R.id.resetPassword && isValidInput()){
 
             progressBar.setVisibility(View.VISIBLE);
             email.setEnabled(false);
@@ -125,5 +126,20 @@ public class ForgetPassword extends Fragment implements View.OnClickListener {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
+    }
+    public boolean isValidInput(){
+        boolean valid=true;
+        if( email.getText().toString().isEmpty()){
+            email.setError("Empty!!");
+            email.requestFocus();
+            valid=false;
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+            email.setError(" Email malformed!!");
+            email.requestFocus();
+            valid=false;
+        }
+
+        return valid;
     }
 }

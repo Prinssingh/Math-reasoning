@@ -80,6 +80,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
     // code to get the single GameLevel
     public GameLevel getGameLevel(int level) {
+        if(level>100){
+            level=1;
+        }
         SQLiteDatabase db = this.getReadableDatabase();
 
        /* Cursor cursor = db.query(TABLE_GAME_LEVELS, new String[]{KEY_LEVEL,

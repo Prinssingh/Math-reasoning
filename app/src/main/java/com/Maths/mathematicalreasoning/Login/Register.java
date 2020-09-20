@@ -1,10 +1,12 @@
 package com.Maths.mathematicalreasoning.Login;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,9 +26,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.Maths.mathematicalreasoning.CustomLogin;
 import com.Maths.mathematicalreasoning.DashBoard;
-import com.Maths.mathematicalreasoning.LoginActivity;
+import com.Maths.mathematicalreasoning.ImpFunctions;
 import com.Maths.mathematicalreasoning.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -50,7 +51,7 @@ public class Register extends Fragment implements View.OnClickListener {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     ProgressBar progressBar;
-
+    ImpFunctions impFun;
 
     public static Register newInstance() {
         return new Register();
@@ -69,19 +70,27 @@ public class Register extends Fragment implements View.OnClickListener {
         progressBar=root.findViewById(R.id.progressBar);
         message=root.findViewById(R.id.message);
         register= root.findViewById(R.id.register);
-        register.setOnClickListener(this);
-
         Skip =root.findViewById(R.id.Skip);
-        Skip.setOnClickListener(this);
-
         loginPage =root.findViewById(R.id.Login);
-        loginPage.setOnClickListener(this);
-
         email =root.findViewById(R.id.email);
         password = root.findViewById(R.id.password);
         confirmpwd =root.findViewById(R.id.confirmpwd);
         name = root.findViewById(R.id.name);
         name.requestFocus();
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+             setup();
+            }
+        });
+        return root;
+
+    }
+    @SuppressLint("CommitPrefEdits")
+    public void setup(){
+        register.setOnClickListener(this);
+        Skip.setOnClickListener(this);
+        loginPage.setOnClickListener(this);
 
         if(PreEmail!=null){
             email.setText(PreEmail);
@@ -113,18 +122,10 @@ public class Register extends Fragment implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         sp=requireContext().getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();
-        return root;
+        impFun =new ImpFunctions(requireContext());
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null){
-            Toast.makeText(getContext(),"Already Registered User",Toast.LENGTH_LONG).show();
-        }
-    }
 
     @Override
     public void onClick(View view) {
@@ -161,11 +162,7 @@ public class Register extends Fragment implements View.OnClickListener {
         if(isValidInput()){
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if(user!= null){
-                // Already Login
-                Log.d("Firebase User","Already registered");
-                Log.d("UID",""+user.getUid());
-                Log.d("Name",""+user.getDisplayName());
-                //Setup Data
+
                 editor.putBoolean("Login",true).commit();
                 editor.putString("User_Name",user.getDisplayName()).commit();
                 editor.putString("User_Email",user.getEmail()).commit();
@@ -175,7 +172,7 @@ public class Register extends Fragment implements View.OnClickListener {
                 startActivity(homeintent);
                 requireActivity().finish();
             }
-            else{
+            else if(impFun.isConnectedToInternet()){
                 progressBar.setVisibility(View.VISIBLE);
                 setAllDisable();
                 final String Email = email.getText().toString();
@@ -186,43 +183,40 @@ public class Register extends Fragment implements View.OnClickListener {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("TAG", "createUserWithEmail:success");
+                                    // Sign in success
 
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Log.d("Register", "Success :");
-                                    Log.d("UID",""+user.getUid());
-
 
                                     //  set an Display name to  User.
                                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                             .setDisplayName(Name)
                                             .build();
-                                    user.updateProfile(profileUpdates)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        Log.d("TAG", "User profile updated. Set Diaplay NAme");
+                                    if (user != null) {
+                                        user.updateProfile(profileUpdates)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Log.d("TAG", "User profile updated. Set Diaplay NAme");
+                                                        }
                                                     }
-                                                }
-                                            });
+                                                });
+                                        //Setup Data
+                                        editor.putBoolean("Login",true).commit();
+                                        editor.putString("User_Name",user.getDisplayName()).commit();
+                                        editor.putString("User_Email",user.getEmail()).commit();
+                                        editor.putString("User_UID",user.getUid()).commit();
+                                        Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
+                                        // Goto Dash Board Activity
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        setAllEnable();
 
-                                    //Setup Data
-                                    editor.putBoolean("Login",true).commit();
-                                    editor.putString("User_Name",user.getDisplayName()).commit();
-                                    editor.putString("User_Email",user.getEmail()).commit();
-                                    editor.putString("User_UID",user.getUid()).commit();
-                                    Toast.makeText(getContext(),"Login Success!!",Toast.LENGTH_LONG).show();
-                                    // Goto Dash Board Activity
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    setAllEnable();
-
-                                    Intent homeintent = new Intent(requireActivity(), DashBoard.class);
-                                    startActivity(homeintent);
-                                    requireActivity().finish();
-
-
+                                        Intent homeintent = new Intent(requireActivity(), DashBoard.class);
+                                        startActivity(homeintent);
+                                        requireActivity().finish();
+                                    }
+                                    else{
+                                    }
                                 }
                                 else {
                                     // If sign in fails, display a message to the user.
@@ -259,20 +253,14 @@ public class Register extends Fragment implements View.OnClickListener {
                                         Log.d("TAG", "onComplete: " + e.getMessage());
                                     }
                                 }
-
                             }
                         });
-
-
             }
-
-
+            else{
+                impFun.ShowToast(getLayoutInflater(),"No Internet Connection!!",
+                        "Please, Connect to  Internet for Register with Math Reasoning!!");
+            }
         }
-
-
-
-
-
     }
 
     public boolean isValidInput(){

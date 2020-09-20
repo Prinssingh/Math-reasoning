@@ -3,20 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="230dp"
         android:layout_height="165dp"
-        android:layout_marginStart="91dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginBottom="533dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="150dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.633"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/failed" />
 
@@ -26,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:fontFamily="@font/cantora_one"
-        android:text="Failed To Sent Emai!!"
+        android:text="Failed To Sent Email!!"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -40,9 +37,10 @@
         android:layout_height="52dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/cantora_one"
-        android:text="Please try again later"
+        android:text="Please try again later.\nUse correct email address."
         android:textAlignment="center"
         android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -62,6 +60,20 @@
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="40dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="40dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GlobalRanking"/>
+
         <!--
          android:debuggable="true"
           tools:ignore="HardcodedDebugMode"
@@ -38,10 +38,12 @@
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".help" />
+
         <activity
             android:name=".CustomLogin"
             android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".GlobalRanking"/>
+        <activity android:name=".help" />
 
         <meta-data
             android:name="preloaded_fonts"
