@@ -168,6 +168,10 @@ public class ImpFunctions{
 
     }
 
+    public int getTotalLevels(){
+        return 100;
+    }
+
 
 
 

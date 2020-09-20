@@ -129,6 +129,7 @@ public class Login extends Fragment implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         sp=requireContext().getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();
+        impFun =new ImpFunctions(requireContext());
 
     }
 

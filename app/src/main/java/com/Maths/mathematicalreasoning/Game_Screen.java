@@ -227,7 +227,11 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     }
 
     public void newGame() {
-
+        if(level >impFun.getTotalLevels())
+        { 
+            level=1;
+            Completed();
+        }
         GameLevel leveX = db.getGameLevel(level);
         Bitmap questionImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(leveX.getQuestion(), "drawable", getPackageName()));
         HintImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier( leveX.getHint() , "drawable", getPackageName()));
@@ -438,7 +442,25 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    public void Completed(){
+        AlertDialog.Builder Complete;
+        Complete=new AlertDialog.Builder(this,android.R.style.Theme_Translucent_NoTitleBar);
+        View SuccessView= getLayoutInflater().inflate(R.layout.completed_100_levels,null);
+        Complete.setView(SuccessView);
+        Button Rank =SuccessView.findViewById(R.id.Rank);
 
-
+        final AlertDialog Done=Complete.create();
+        Done.show();
+        Rank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                impFun.OnclickSound();
+                Intent intent6 = new Intent(Game_Screen.this, GlobalRanking.class);
+                startActivity(intent6);
+                Done.dismiss();
+                finish();
+            }
+        });
+    }
 
 }
