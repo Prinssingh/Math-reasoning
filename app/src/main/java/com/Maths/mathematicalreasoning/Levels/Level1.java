@@ -46,10 +46,9 @@ public class Level1 extends Fragment {
 
         for(i=1;i<=totalEnabled;i++ ){
             final int j = i;
-            int id= getResources().getIdentifier("button"+i, "id", getActivity().getPackageName());
+            int id= getResources().getIdentifier("button"+i, "id", requireActivity().getPackageName());
             Log.d("Button id",""+id);
-            Button b=new Button(getContext());
-            b = root.findViewById(id);
+            Button  b = root.findViewById(id);
             b.setEnabled(true);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
