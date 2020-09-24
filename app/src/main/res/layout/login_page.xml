@@ -106,44 +106,25 @@
         app:layout_constraintStart_toStartOf="@+id/password"
         tools:ignore="MissingConstraints" />
 
-    <com.shobhitpuri.custombuttons.GoogleSignInButton
-        android:id="@+id/googleSignInButton"
-        android:layout_width="233dp"
-        android:layout_height="58dp"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="16dp"
-        android:text="Login with google"
-        app:isDarkTheme="true"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
-        app:layout_constraintVertical_bias="0.938"
-        tools:ignore="MissingConstraints" />
-
     <TextView
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="64dp"
         android:text="Create one"
         android:textColor="#3E57E4"
-        app:layout_constraintEnd_toEndOf="@+id/googleSignInButton"
-        app:layout_constraintTop_toBottomOf="@+id/googleSignInButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="68dp"
         android:text="Not account yet?"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toStartOf="@+id/register"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="@+id/googleSignInButton"
-        app:layout_constraintTop_toBottomOf="@+id/googleSignInButton"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -170,23 +151,9 @@
         android:padding="10dp"
         android:text="Login"
         android:textColor="#ffffff"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
-        app:layout_constraintEnd_toEndOf="@+id/textView9"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/forget"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="-------- or --------"
-        app:layout_constraintBottom_toTopOf="@+id/googleSignInButton"
-        app:layout_constraintEnd_toEndOf="@+id/googleSignInButton"
-        app:layout_constraintStart_toStartOf="@+id/googleSignInButton"
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Guideline

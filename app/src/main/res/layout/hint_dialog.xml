@@ -26,6 +26,7 @@
                 android:fontFamily="@font/cantora_one"
                 android:layout_marginBottom="30dp"/>
 
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,6 +114,16 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/adsNotLoaded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                android:textAlignment="center"
+                android:text="Ads are not available yet."/>
+
 
 
             <Button
@@ -121,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Close"
-                android:layout_marginTop="55dp"
+                android:layout_marginTop="20dp"
                 android:textColor="#00c2c3"
                 tools:ignore="HardcodedText"
                 android:layout_gravity="center"/>

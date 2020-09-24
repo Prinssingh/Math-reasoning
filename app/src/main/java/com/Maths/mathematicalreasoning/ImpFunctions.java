@@ -44,8 +44,9 @@ public class ImpFunctions{
         sp=context.getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();
         onclick= MediaPlayer.create(context,R.raw.numberclick);
-        right =MediaPlayer.create(context,R.raw.numberclick);
-        wrong =MediaPlayer.create(context,R.raw.numberclick);
+        right =MediaPlayer.create(context,R.raw.right);
+        wrong =MediaPlayer.create(context,R.raw.wrong);
+
     }
 
     public void ShowToast(LayoutInflater layoutInflater, String Title, String Message) {
@@ -120,44 +121,6 @@ public class ImpFunctions{
 
     }
 
-    public void NotifyMe(){
-        Intent mainIntent = new Intent(context, DashBoard.class);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "123456")
-                .setSmallIcon(R.drawable.logo)
-                .setContentIntent(PendingIntent.getActivity(context, 131314, mainIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT))
-                .setTicker("We Miss You! Please come back and play our game again soon.")
-                .setContentTitle("My notification")
-                .setTicker("We Miss You! Please come back and play our game again soon.")
-                .setContentText("Much longer text that cannot fit one line...prins")
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Much longer text that cannot fit one line...prins"))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("123456", "prins SIngh", importance);
-            channel.setDescription("DIsacription For RThe app");
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(12, builder.build());
-    }
-
-    public void OnclickSound() {
-
-        if (sp.getBoolean("Sound",true))
-        {
-            onclick.start();
-        }
-
-    }
-
     public String getVersionName(){
         PackageInfo packageInfo = null;
         try {
@@ -178,6 +141,27 @@ public class ImpFunctions{
 
 
 
+    public void OnclickSound() {
 
+        if (sp.getBoolean("Sound",true))
+        {
+            onclick.start();
+        }
+    }
+
+    public void correctSound(){
+        if (sp.getBoolean("Sound",true))
+        {
+            right.start();
+        }
+
+    }
+
+    public void wrongSound(){
+        if (sp.getBoolean("Sound",true))
+        {
+            wrong.start();
+        }
+    }
 
 }

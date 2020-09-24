@@ -38,6 +38,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Game_Screen"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Levels_Screen"

@@ -14,26 +14,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="LoginTheme" parent="FirebaseUI">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorButtonNormal">#03A9F4</item>
-        <item name="colorControlNormal">@android:color/white</item>
-        <item name="colorControlActivated">@color/Chutiyapa</item>
-        <item name="colorControlHighlight">#3F51B5</item>
-        <item name="android:textColor">@color/nextbgcolor</item>
-        <item name="android:textColorPrimary">@color/nextbgcolor</item>
-        <item name="android:textColorSecondary">#FF5722</item>
-        <item name="android:windowBackground">@drawable/allbg</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:textColorHint">@android:color/white</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:windowSoftInputMode">adjustNothing</item>
-
-    </style>
-
 
     <!-- Animations      -->
 
