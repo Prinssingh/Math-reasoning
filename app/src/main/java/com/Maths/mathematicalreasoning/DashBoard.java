@@ -15,8 +15,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DashBoard extends AppCompatActivity {
 
@@ -26,8 +30,10 @@ public class DashBoard extends AppCompatActivity {
 
     private CardView play,levels,setting,share,rank,exit;
     ImpFunctions impFun;
+    Animation ZoomIn,ZoomOut;
 
-
+    ImageView playIcon,levelsIcon,settingIcon,shareIcon,rankIcon,exitIcon;
+    Thread t = new Thread(new Zoom());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +56,6 @@ public class DashBoard extends AppCompatActivity {
 
 
 
-
-
-
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -63,10 +66,37 @@ public class DashBoard extends AppCompatActivity {
         editor=sp.edit();
 
         impFun =new ImpFunctions(getApplicationContext());
-
         ExitAlertDialog=new AlertDialog.Builder(this);
 
+        // Setting Animation
+        ZoomIn=  AnimationUtils.loadAnimation(this, R.anim.zoom_in);
+        ZoomOut = AnimationUtils.loadAnimation(this, R.anim.zoom_out);
 
+        playIcon =findViewById(R.id.playIcon);
+        playIcon.setAnimation(ZoomIn);
+        playIcon.setAnimation(ZoomOut);
+
+        levelsIcon =findViewById(R.id.levelsIcon);
+        levelsIcon.setAnimation(ZoomIn);
+        levelsIcon.setAnimation(ZoomOut);
+
+        settingIcon =findViewById(R.id.settingIcon);
+        settingIcon.setAnimation(ZoomIn);
+        settingIcon.setAnimation(ZoomOut);
+
+        shareIcon =findViewById(R.id.shareIcon);
+        shareIcon.setAnimation(ZoomIn);
+        shareIcon.setAnimation(ZoomOut);
+
+        rankIcon =findViewById(R.id.rankIcon);
+        rankIcon.setAnimation(ZoomIn);
+        rankIcon.setAnimation(ZoomOut);
+
+        exitIcon =findViewById(R.id.exitIcon);
+        exitIcon.setAnimation(ZoomIn);
+        exitIcon.setAnimation(ZoomOut);
+
+        t.start();
 
         // No Internet connection alert
         if (! impFun.isConnectedToInternet()) {
@@ -161,6 +191,11 @@ public class DashBoard extends AppCompatActivity {
         super.onResume();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     public void ExitDialog(){
         View ExitDialogView= getLayoutInflater().inflate(R.layout.exit_dialog,null);
         ExitAlertDialog.setView(ExitDialogView);
@@ -215,21 +250,42 @@ public class DashBoard extends AppCompatActivity {
         exit.setEnabled(true);
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i ("Service status", "Running");
-                return true;
-            }
-        }
-        Log.i ("Service status", "Not running");
-        return false;
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private class Zoom implements Runnable {
+        public void run() {
+            while (true) {
+                playIcon.startAnimation(ZoomIn);
+                levelsIcon.startAnimation(ZoomIn);
+                settingIcon.startAnimation(ZoomIn);
+                shareIcon.startAnimation(ZoomIn);
+                rankIcon.startAnimation(ZoomIn);
+                exitIcon.startAnimation(ZoomIn);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                playIcon.startAnimation(ZoomOut);
+                levelsIcon.startAnimation(ZoomOut);
+                settingIcon.startAnimation(ZoomOut);
+                shareIcon.startAnimation(ZoomOut);
+                rankIcon.startAnimation(ZoomOut);
+                exitIcon.startAnimation(ZoomOut);
+
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
     }
 
 }

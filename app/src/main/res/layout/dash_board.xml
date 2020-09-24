@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/homebg">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <TextView
             android:layout_width="match_parent"
@@ -19,11 +20,12 @@
             android:text="Dashboard"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
-            android:textSize="30dp" />
+            android:textSize="30sp"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
             android:paddingLeft="10dp"
@@ -38,7 +40,8 @@
                 android:alignmentMode="alignMargins"
                 android:columnCount="2"
                 android:columnOrderPreserved="false"
-                android:rowCount="1">
+                android:rowCount="1"
+                tools:ignore="NestedWeights">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/play"
@@ -53,14 +56,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/dashclick"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
+                            android:id="@+id/playIcon"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            app:srcCompat="@drawable/play" />
+                            app:srcCompat="@drawable/dashboardplayicon"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -70,7 +76,8 @@
                             android:text="Play"
                             android:textAlignment="center"
                             android:textColor="#33333f"
-                            android:textSize="25sp" />
+                            android:textSize="25sp"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -88,14 +95,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/dashclick"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
-                            android:layout_width="50dp"
+                            android:id="@+id/levelsIcon"
+                            android:layout_width="44dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/levels" />
+                            android:src="@drawable/dashboardlevelsicon"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -105,7 +115,8 @@
                             android:text="Levels"
                             android:textAlignment="center"
                             android:textColor="#33333f"
-                            android:textSize="25dp" />
+                            android:textSize="25sp"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -134,16 +145,18 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/dashclick"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
+                            android:id="@+id/settingIcon"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:contentDescription="setting image"
-                            android:src="@drawable/setting"
+                            android:src="@drawable/dashboardsettingicon"
                             tools:ignore="HardcodedText" />
 
                         <TextView
@@ -173,14 +186,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/dashclick"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
+                            android:id="@+id/shareIcon"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/share1" />
+                            android:src="@drawable/dashboardshareicon"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -190,7 +206,8 @@
                             android:text="Share"
                             android:textAlignment="center"
                             android:textColor="#33333f"
-                            android:textSize="25sp" />
+                            android:textSize="25sp"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -220,15 +237,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/dashclick"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/ranking1"
+                            android:id="@+id/rankIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/dashboardrankicon"
                             tools:ignore="ContentDescription" />
 
                         <TextView
@@ -258,15 +277,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/dashclick"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
+                            android:id="@+id/exitIcon"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/exit"
+                            android:src="@drawable/dashboardexiticon"
                             tools:ignore="ContentDescription" />
 
                         <TextView

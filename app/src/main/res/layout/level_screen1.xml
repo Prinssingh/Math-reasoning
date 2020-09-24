@@ -36,7 +36,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/nextbgcolor"
                 android:textSize="35sp"
-                 />
+                tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
                 android:id="@+id/button2"

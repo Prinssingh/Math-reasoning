@@ -252,6 +252,9 @@ public class Login extends Fragment implements View.OnClickListener {
                         editor.putString("User_Name", user.getName()).commit();
                         editor.putString("User_Email", user.getEmail()).commit();
                         editor.putInt("CompletedLevels", user.getLevel()).commit();
+                        editor.putInt("Hint",user.getHint()).commit();
+                        editor.putInt("Solution",user.getSolution()).commit();
+                        editor.putLong("DT",user.getDT()).commit();
                         progressDialog1.setMessage("Done Getting Progress.. !!");
                         progressDialog1.hide();
                     }catch (Exception ignored){}

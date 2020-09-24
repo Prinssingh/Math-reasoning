@@ -8,28 +8,54 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/allbg"
+        android:background="@drawable/allbg1"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <ImageButton
+                android:id="@+id/goBAck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/goback"
+                tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/currentLevel"
+                android:text="Level :100"
+                android:textSize="20sp"
+                android:textColor="#00c2c3"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+
             android:layout_marginRight="10dp"
             android:layout_marginBottom="4dp"
             android:layout_weight="1"
             android:background="@drawable/imgshape"
             android:orientation="vertical">
 
+
             <ImageView
                 android:id="@+id/questionimg"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/question1"
-                tools:ignore="InvalidId" />
+                tools:ignore="ContentDescription,InvalidId,NestedWeights" />
 
             <blink
                 android:layout_width="match_parent"
@@ -108,13 +134,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                    <ImageButton
+                    <TextView
                         android:id="@+id/getHint"
                         android:layout_width="18dp"
                         android:layout_height="50dp"
-                        android:layout_margin="5dp"
+                        android:text=" ? "
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="#00c2cb"
+                        android:textStyle="bold"
+                        android:textSize="46sp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/hint" />
+                        app:srcCompat="@drawable/hint"
+                        android:clickable="true"
+                        android:focusable="true" />
 
                 </LinearLayout>
 
@@ -156,7 +189,7 @@
                     android:rowCount="1">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/register"
+                        android:id="@+id/number1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -185,7 +218,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/button2"
+                        android:id="@+id/number2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -213,7 +246,7 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/button3"
+                        android:id="@+id/number3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -242,7 +275,7 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/button4"
+                        android:id="@+id/number4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -271,7 +304,7 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/button5"
+                        android:id="@+id/number5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -320,7 +353,7 @@
                     android:rowCount="1">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/button6"
+                        android:id="@+id/number6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -349,7 +382,7 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/button7"
+                        android:id="@+id/number7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -378,7 +411,7 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/button8"
+                        android:id="@+id/number8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -407,7 +440,7 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/button9"
+                        android:id="@+id/number9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -437,7 +470,7 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/button0"
+                        android:id="@+id/number0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"

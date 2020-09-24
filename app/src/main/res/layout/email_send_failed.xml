@@ -49,11 +49,12 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginTop="76dp"
-        android:background="@drawable/custombutton"
+        android:background="@drawable/button_style2"
         android:padding="10dp"
 
         android:text="Login"
         android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/guideline17"
         app:layout_constraintEnd_toEndOf="@+id/textView6"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/textView6"

@@ -95,9 +95,13 @@ public class ImpFunctions{
         String Name=sp.getString("User_Name","NoName");
         String Email =sp.getString("User_Email","Noemail@gmail.com");
         String key =sp.getString("User_UID","no");
-        int Level =sp.getInt("CompletedLevels",0);
 
-        UserData object =new UserData(Name,Email,Level);
+        int Level =sp.getInt("CompletedLevels",0);
+        int Hint =sp.getInt("Hint",0);
+        int Solution =sp.getInt("Solution",0);
+        long DT =sp.getLong("DT",System.currentTimeMillis());
+
+        UserData object =new UserData(Name,Email,Level,Hint,Solution,DT);
         Map<String,Object> map1 = object.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();

@@ -167,7 +167,7 @@
         android:id="@+id/register"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:background="@drawable/custombutton"
+        android:background="@drawable/button_style2"
         android:padding="10dp"
         android:text="Register"
         android:textColor="#ffffff"

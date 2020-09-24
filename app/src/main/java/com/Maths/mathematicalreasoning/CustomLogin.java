@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.Maths.mathematicalreasoning.Login.Login;
 import com.Maths.mathematicalreasoning.Login.Register;
 
 

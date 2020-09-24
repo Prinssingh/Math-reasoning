@@ -38,8 +38,6 @@ import java.util.Objects;
 public class Game_Screen extends AppCompatActivity implements View.OnClickListener {
 
     //DataBase Handling
-
-    DataBaseHandler db;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -55,12 +53,14 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
     // View Handling
     private ImageView quiz;
-    private TextView userdisply,Wrong;
+    private TextView userdisply;
+    private TextView Wrong;
+    private TextView CurrentLevel;
     private AlertDialog.Builder rightDialog,hintDialog,solutionDialog;
 
     CardView button0,button1,button2,button3,button4,button5,button6,button7,button8,button9;
     Button enter;
-    ImageButton  cleardisplay,getHint;
+    ImageButton  cleardisplay,GoBack;
 
     String UD="";
     Boolean levelScreen;
@@ -89,7 +89,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         level=intent.getIntExtra("Level",1);
         levelScreen =intent.getBooleanExtra("LevelScreen",false);
 
-        db=new DataBaseHandler(this);
+
         sp=getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();
 
@@ -101,21 +101,25 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         solutionDialog=new AlertDialog.Builder(this);
 
 
-        button0 = findViewById(R.id.button0);
-        button1 = findViewById(R.id.register);
-        button2 = findViewById(R.id.button2);
-        button3 = findViewById(R.id.button3);
-        button4 = findViewById(R.id.button4);
-        button5 = findViewById(R.id.button5);
-        button6 = findViewById(R.id.button6);
-        button7 = findViewById(R.id.button7);
-        button8 = findViewById(R.id.button8);
-        button9 = findViewById(R.id.button9);
+        button0 = findViewById(R.id.number0);
+        button1 = findViewById(R.id.number1);
+        button2 = findViewById(R.id.number2);
+        button3 = findViewById(R.id.number3);
+        button4 = findViewById(R.id.number4);
+        button5 = findViewById(R.id.number5);
+        button6 = findViewById(R.id.number6);
+        button7 = findViewById(R.id.number7);
+        button8 = findViewById(R.id.number8);
+        button9 = findViewById(R.id.number9);
         enter = findViewById(R.id.enter);
         userdisply=findViewById(R.id.userdisplay);
         cleardisplay =findViewById(R.id.cleardisplay);
         Wrong=findViewById(R.id.WrongAns);
-        getHint =findViewById(R.id.getHint);
+        TextView getHint = findViewById(R.id.getHint);
+        GoBack =findViewById(R.id.goBAck);
+        CurrentLevel =findViewById(R.id.currentLevel);
+        CurrentLevel.setText("Level :"+level);
+
 
         button0.setOnClickListener(this);
         button1.setOnClickListener(this);
@@ -130,6 +134,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         enter.setOnClickListener(this);
         cleardisplay.setOnClickListener(this);
         getHint.setOnClickListener(this);
+        GoBack.setOnClickListener(this);
+
 
         // initiallygoogle Ads Setup
         HintRewardedAd     =  createAndLoadRewardedAd(HintAdsId);
@@ -168,34 +174,34 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 userdisply.setText("");
                 UD="";
                 return;
-            case R.id.button0:
+            case R.id.number0:
                 setUserDisplay("0");
                 break;
-            case R.id.register:
+            case R.id.number1:
                 setUserDisplay("1");
                 break;
-            case R.id.button2:
+            case R.id.number2:
                 setUserDisplay("2");
                 break;
-            case R.id.button3:
+            case R.id.number3:
                 setUserDisplay("3");
                 break;
-            case R.id.button4:
+            case R.id.number4:
                 setUserDisplay("4");
                 break;
-            case R.id.button5:
+            case R.id.number5:
                 setUserDisplay("5");
                 break;
-            case R.id.button6:
+            case R.id.number6:
                 setUserDisplay("6");
                 break;
-            case R.id.button7:
+            case R.id.number7:
                 setUserDisplay("7");
                 break;
-            case R.id.button8:
+            case R.id.number8:
                 setUserDisplay("8");
                 break;
-            case R.id.button9:
+            case R.id.number9:
                 setUserDisplay("9");
                 break;
             case R.id.cleardisplay:
@@ -206,7 +212,10 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 if (impFun.isConnectedToInternet()){
                     ShowHintDialog();
                 }else{impFun.ShowToast(getLayoutInflater(),"No Internet Connection!!","Please, Connect to an Internet for Good Experience!!");}
-
+                break;
+            case R.id.goBAck:
+                GoBackToLevels();
+                break;
             default:
                 break;
 
@@ -226,16 +235,16 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     }
 
     public void newGame() {
+        CurrentLevel.setText("Level :"+level);
         if(level >impFun.getTotalLevels())
         {
             level=1;
             Completed();
         }
-        GameLevel leveX = db.getGameLevel(level);
-        Bitmap questionImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(leveX.getQuestion(), "drawable", getPackageName()));
-        HintImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier( leveX.getHint() , "drawable", getPackageName()));
-        SolutionImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier( leveX.getSolution() , "drawable", getPackageName()));
-        Answer=leveX.getAnswer();
+        Bitmap questionImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier("question"+level, "drawable", getPackageName()));
+        HintImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier( "hint"+level , "drawable", getPackageName()));
+        SolutionImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier( "solution"+level , "drawable", getPackageName()));
+        Answer=Constants.Answers[level];
         quiz.setImageBitmap(questionImg);
     }
 
@@ -249,7 +258,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             //show write dialogBox
             rightAlert();
             if (level > sp.getInt("CompletedLevels",0)){
-                editor.putInt("CompletedLevels",level).commit();}
+                editor.putInt("CompletedLevels",level).commit();
+                editor.putLong("DT",System.currentTimeMillis()).commit();}
 
         }
         else
@@ -283,6 +293,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 level=level+1;
+                impFun.OnclickSound();
                 newGame();
                 right.dismiss();
             }
@@ -296,7 +307,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         hintDialog.setCancelable(false);
         CardView hint = HintDialogView.findViewById(R.id.ShowHintRewardVideo);
         CardView solution = HintDialogView.findViewById(R.id.ShowSolutionRewardVideo);
-        CardView close =HintDialogView.findViewById(R.id.CloseGetHintDialog);
+        Button close =HintDialogView.findViewById(R.id.CloseGetHintDialog);
 
         final AlertDialog hint123=hintDialog.create();
         Objects.requireNonNull(hint123.getWindow()).setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -314,7 +325,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 impFun.OnclickSound();
-                ShowHintVideoAds();
+                //ShowHintVideoAds();
+                ShowSolution(HintImg,"Hint");// Testing
                 hint123.dismiss();
             }
         });
@@ -323,7 +335,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 impFun.OnclickSound();
-                ShowSolutionVideoAds();
+                //ShowSolutionVideoAds();
+                ShowSolution(SolutionImg,"Solution"); //Testing
                 hint123.dismiss();
             }
         });
@@ -350,6 +363,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     }
 
     public void ShowHintVideoAds(){
+
         if (HintRewardedAd.isLoaded()) {
             Activity activityContext =this;
             RewardedAdCallback adCallback = new RewardedAdCallback() {
@@ -368,7 +382,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 @Override
                 public void onUserEarnedReward(@NonNull RewardItem reward) {
                     // User earned reward.
-                    ShowSolution(HintImg);
+                    ShowSolution(HintImg,"Hint");
                 }
 
                 @Override
@@ -401,7 +415,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 @Override
                 public void onUserEarnedReward(@NonNull RewardItem reward) {
                     // User earned reward.
-                    ShowSolution(SolutionImg);
+                    ShowSolution(SolutionImg,"Solution");
                 }
 
                 @Override
@@ -417,7 +431,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public  void ShowSolution(Bitmap ans){
+
+    public  void ShowSolution(Bitmap ans, final String type){
         View SolutionView= getLayoutInflater().inflate(R.layout.solution_dialog,null);
         solutionDialog.setView(SolutionView);
         solutionDialog.setCancelable(false);
@@ -435,6 +450,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             public void onClick(View view) {
                 impFun.OnclickSound();
                 Sol.dismiss();
+                if(type.equals("Hint")){editor.putInt("Hint",sp.getInt("Hint",0)+1);}
+                else{editor.putInt("Solution",sp.getInt("Solution",0)+1);}
             }
         });
 
@@ -460,6 +477,21 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 finish();
             }
         });
+    }
+
+    public void GoBackToLevels(){
+
+        int page=0;
+        if(level<=20){ page=0;}
+        else if (level <= 40){ page=1;}
+        else if(level <= 60){page=2;}
+        else if(level <= 80){page=3;}
+        else if(level <= 100){page=4;}
+        Intent intent2 = new Intent(this, Levels_Screen.class);
+        intent2.putExtra("Page",page);
+        startActivity(intent2);
+        finish();
+
     }
 
 }
