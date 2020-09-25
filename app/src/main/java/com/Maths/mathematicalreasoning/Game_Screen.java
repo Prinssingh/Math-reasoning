@@ -15,9 +15,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -142,24 +139,14 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     public void onBackPressed() {
         impFun.OnclickSound();
         if (levelScreen) {
-           // continue;
-            int page=0;
-            if(level<=20){ page=0;}
-            else if (level <= 40){ page=1;}
-            else if(level <= 60){page=2;}
-            else if(level <= 80){page=3;}
-            else if(level <= 100){page=4;}
-            Intent intent2 = new Intent(this, Levels_Screen.class);
-            intent2.putExtra("Page",page);
-            startActivity(intent2);
-            finish();
+            GoBackToLevels();
         }
         super.onBackPressed();
     }
 
     @Override
     public void onClick(View view) {
-        view.playSoundEffect(SoundEffectConstants.CLICK);
+        impFun.OnclickSound();
         switch (view.getId()){
             case R.id.enter:
                 validate();
@@ -464,8 +451,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
             @Override
             public void onError(Ad ad, AdError error) {
-                // Rewarded video ad failed to load
-                Log.e(TAG, "Rewarded video ad failed to load: " + error.getErrorMessage());
             }
 
             @Override
@@ -474,20 +459,15 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 try {
                     adsNotLoaded.setVisibility(View.INVISIBLE);
                 }catch (Exception ignored){}
-                Log.d(TAG, "Rewarded video ad is loaded and ready to be displayed!");
             }
 
             @Override
             public void onAdClicked(Ad ad) {
-                // Rewarded video ad clicked
-                Log.d(TAG, "Rewarded video ad clicked!");
+
             }
 
             @Override
             public void onLoggingImpression(Ad ad) {
-                // Rewarded Video ad impression - the event will fire when the
-                // video starts playing
-                Log.d(TAG, "Rewarded video ad impression logged!");
             }
 
             @Override
@@ -503,6 +483,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 loadHindAd();
             }
         };
+        if(!HintRewardedVideoAd.isAdLoaded())
         HintRewardedVideoAd.loadAd(
                 HintRewardedVideoAd.buildLoadAdConfig()
                         .withAdListener(rewardedVideoAdListener)
@@ -522,8 +503,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onAdLoaded(Ad ad) {
-                // Rewarded video ad is loaded and ready to be displayed
-                Log.d(TAG, "Rewarded video ad is loaded and ready to be displayed!");
                 try {
                     adsNotLoaded.setVisibility(View.INVISIBLE);
                 }catch (Exception ignored){}
@@ -531,15 +510,11 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onAdClicked(Ad ad) {
-                // Rewarded video ad clicked
-                Log.d(TAG, "Rewarded video ad clicked!");
             }
 
             @Override
             public void onLoggingImpression(Ad ad) {
-                // Rewarded Video ad impression - the event will fire when the
-                // video starts playing
-                Log.d(TAG, "Rewarded video ad impression logged!");
+
             }
 
             @Override
@@ -555,6 +530,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 loadSolutionAd();
             }
         };
+        if(!SolutionRewardedVideoAd.isAdLoaded())
         SolutionRewardedVideoAd.loadAd(
                 SolutionRewardedVideoAd.buildLoadAdConfig()
                         .withAdListener(rewardedVideoAdListener)

@@ -135,6 +135,7 @@ public class Login extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        impFun.OnclickSound();
         switch (view.getId()){
             case R.id.register:
                 ChangeFragment(Register.newInstance());

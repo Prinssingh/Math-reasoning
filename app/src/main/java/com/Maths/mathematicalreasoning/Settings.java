@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +19,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
@@ -89,7 +87,7 @@ public class Settings extends AppCompatActivity {
             NamePreference = findPreference("Name");
             final SwitchPreferenceCompat Sound =findPreference("Sound");
             final Preference SyncNow =findPreference("SyncNow");
-            final Preference Help =findPreference("Help");
+            final Preference FollowUs =findPreference("FollowUs");
             final Preference ContactUs =findPreference("ContactUs");
             final Preference PrivacyPolicy =findPreference("PrivacyPolicy");
             final Preference Feedback =findPreference("Feedback");
@@ -104,7 +102,7 @@ public class Settings extends AppCompatActivity {
                 NamePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        impFun.OnclickSound();AlertDialog.Builder NamePref;
+                        impFun.OnclickSound();
                         if(sp.getInt("NameChanged",0)<2){
                             ChangeName(2-sp.getInt("NameChanged",0));
                         }
@@ -122,16 +120,14 @@ public class Settings extends AppCompatActivity {
                   @Override
                   public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-
                       if(Sound.isChecked()){
-                          editor.putBoolean("Sound",false).commit();
+                          editor.putBoolean("Sound",false).apply();
                           Sound.setChecked(false);
                       }
                       else {
-                          impFun.OnclickSound();
                           editor.putBoolean("Sound",true).commit();
                           Sound.setChecked(true);
-
+                          impFun.OnclickSound();
                       }
                       return false;
                   }
@@ -139,12 +135,12 @@ public class Settings extends AppCompatActivity {
 
             }
 
-            if (SyncNow!=null){
+            if (SyncNow!=null) {
                 SyncNow.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         impFun.OnclickSound();
-                        if(isSyncNowAVL()) {
+                        if (isSyncNowAVL()) {
                             if (impFun.isConnectedToInternet()) {
                                 if (!sp.getBoolean("Login", false)) {
                                     Intent LoginIntent = new Intent(getActivity(), CustomLogin.class);
@@ -152,29 +148,16 @@ public class Settings extends AppCompatActivity {
 
                                 } else {
                                     impFun.SyncData();
-                                    editor.putLong("LastSyncTime",System.currentTimeMillis()).commit();
+                                    editor.putLong("LastSyncTime", System.currentTimeMillis()).commit();
                                 }
 
                             } else {
                                 impFun.ShowToast(getLayoutInflater(), "No Internet", "Please Connect to internet for Sync your Progress !!");
                             }
 
+                        } else {
+                            Toast.makeText(getContext(), "You can sync your data once in a day!!", Toast.LENGTH_LONG).show();
                         }
-                        else{
-                            Toast.makeText(getContext(),"You can sync your data once in a day!!",Toast.LENGTH_LONG).show();
-                        }
-                        return false;
-                    }
-                });
-            }
-
-            if (Help!=null){
-                Help.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        impFun.OnclickSound();
-                        Intent intent7 = new Intent(getContext(), help.class);
-                        startActivity(intent7);
                         return false;
                     }
                 });
@@ -191,12 +174,24 @@ public class Settings extends AppCompatActivity {
                 });
             }
 
+            if(FollowUs!=null){
+                FollowUs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        impFun.OnclickSound();
+                        OpenInsta();
+                        return false;
+                    }
+                });
+            }
+
+
             if (PrivacyPolicy!=null){
                 PrivacyPolicy.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         impFun.OnclickSound();
-                        Intent intent7 = new Intent(getContext(), help.class);
+                        Intent intent7 = new Intent(getContext(), com.Maths.mathematicalreasoning.PrivacyPolicy.class);
                         startActivity(intent7);
                         return false;
                     }
@@ -351,6 +346,21 @@ public class Settings extends AppCompatActivity {
                 startActivity(Intent.createChooser(i, "Send Mail bia"));
             } catch (android.content.ActivityNotFoundException ex) {
                 Toast.makeText(getContext(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+        private void OpenInsta(){
+            Uri uri = Uri.parse("http://instagram.com/_u/xxx");
+            Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+            likeIng.setPackage("com.instagram.android");
+
+            try {
+                startActivity(likeIng);
+            } catch (ActivityNotFoundException e) {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://instagram.com/xxx")));
             }
         }
     }

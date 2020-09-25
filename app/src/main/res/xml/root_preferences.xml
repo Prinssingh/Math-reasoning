@@ -26,15 +26,17 @@
 
     <PreferenceCategory app:title="More">
 
-        <Preference
-            android:icon="@drawable/help"
-            android:key="Help"
-            android:title="Help" />
 
         <Preference
             android:icon="@drawable/contact_email"
             android:key="ContactUs"
             android:title="Contact Us" />
+
+        <Preference
+            android:icon="@drawable/instaicon"
+            android:key="FollowUs"
+            android:title="Follow Us" />
+
 
         <Preference
             android:icon="@drawable/privacy_policy"

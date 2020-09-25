@@ -12,4 +12,6 @@ public class Constants {
                                     92,408,27,38,41,748,18,10,1,2880,
                                     469,232,2031,12,136,36,7766,19,4,23
     };
+
+    public String PrivacyPolicy ="";
 }

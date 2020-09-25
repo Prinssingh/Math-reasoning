@@ -43,7 +43,7 @@ public class ImpFunctions{
         this.context=context;
         sp=context.getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();
-        onclick= MediaPlayer.create(context,R.raw.numberclick);
+        onclick= MediaPlayer.create(context,R.raw.onclick);
         right =MediaPlayer.create(context,R.raw.right);
         wrong =MediaPlayer.create(context,R.raw.wrong);
 

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.Maths.mathematicalreasoning.ImpFunctions;
 import com.Maths.mathematicalreasoning.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +30,7 @@ public class ForgetPassword extends Fragment implements View.OnClickListener {
     Button   resetPassword;
     private FirebaseAuth mAuth;
     ProgressBar progressBar;
+    ImpFunctions impFun;
 
     public static ForgetPassword newInstance() {
         return new ForgetPassword();
@@ -44,6 +46,7 @@ public class ForgetPassword extends Fragment implements View.OnClickListener {
         resetPassword =root.findViewById(R.id.resetPassword);
         resetPassword.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
+        impFun =new ImpFunctions(requireContext());
 
         return root;
     }
@@ -51,6 +54,7 @@ public class ForgetPassword extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        impFun.OnclickSound();
         if(view.getId()==R.id.resetPassword && isValidInput()){
 
             progressBar.setVisibility(View.VISIBLE);

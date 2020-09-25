@@ -129,6 +129,7 @@ public class Register extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        impFun.OnclickSound();
         switch (view.getId()){
             case R.id.register:
                 RegisterToApp();

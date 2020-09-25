@@ -52,7 +52,7 @@
             android:name=".GlobalRanking"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".help"
+            android:name=".PrivacyPolicy"
             android:screenOrientation="portrait" />
 
         <meta-data

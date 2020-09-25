@@ -13,12 +13,14 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.Maths.mathematicalreasoning.Game_Screen;
+import com.Maths.mathematicalreasoning.ImpFunctions;
 import com.Maths.mathematicalreasoning.R;
 
 public class Level5 extends Fragment {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     int i;
+    ImpFunctions impFun;
 
 
     public static Level5 newInstance() {
@@ -33,6 +35,7 @@ public class Level5 extends Fragment {
 
         sp=requireActivity().getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
         editor=sp.edit();
+        impFun =new ImpFunctions(requireContext());
 
         int totalEnabled;
         int enabledLevels =sp.getInt("CompletedLevels",0)+1;
@@ -48,12 +51,12 @@ public class Level5 extends Fragment {
         for(i=81;i<=totalEnabled;i++ ){
             final int j = i;
             int id= getResources().getIdentifier("button"+i, "id", requireActivity().getPackageName());
-            Button  b=new Button(getContext());
-            b =root.findViewById(id);
+            Button  b= root.findViewById(id);
             b.setEnabled(true);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    impFun.OnclickSound();
                     Intent intent1 = new Intent(getContext(), Game_Screen.class);
                     intent1.putExtra("Level",j);
                     intent1.putExtra("LevelScreen",true);
