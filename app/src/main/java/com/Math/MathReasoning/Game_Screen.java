@@ -573,7 +573,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
         File imagePath = new File(getCacheDir(), "images");
         File newFile = new File(imagePath, "image.png");
-        Uri contentUri = FileProvider.getUriForFile(this, "com.Maths.mathematicalreasoning", newFile);
+        Uri contentUri = FileProvider.getUriForFile(this, "com.Math.MathReasoning", newFile);
 
         if (contentUri != null) {
             Intent shareIntent = new Intent();
