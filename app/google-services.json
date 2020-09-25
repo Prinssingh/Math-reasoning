@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1009190761338:android:ff7e61b045d0b565a59cc3",
         "android_client_info": {
-          "package_name": "com.Maths.mathematicalreasoning"
+          "package_name": "com.Math.MathReasoning"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1009190761338-drrt6pgjr57fgrkd47u89sckiohvpaam.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.Maths.mathematicalreasoning",
+            "package_name": "com.Math.MathReasoning",
             "certificate_hash": "f060681d2fca81fe7c0d8f5f0ad8f2c75675bedd"
           }
         },

@@ -33,7 +33,7 @@
             android:title="Contact Us" />
 
         <Preference
-            android:icon="@drawable/instaicon"
+            android:icon="@drawable/followicon"
             android:key="FollowUs"
             android:title="Follow Us" />
 

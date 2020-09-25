@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.Maths.mathematicalreasoning"
+        applicationId "com.Math.MathReasoning"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -17,7 +17,7 @@ android {
 
     buildTypes {
         release {
-            debuggable true
+            debuggable false
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

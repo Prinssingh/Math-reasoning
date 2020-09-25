@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.Maths.mathematicalreasoning">
+    package="com.Math.MathReasoning">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -14,13 +11,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <!--
-         android:debuggable="true"
-          tools:ignore="HardcodedDebugMode"
-        -->
+        android:theme="@style/AppTheme"
+
+        >
+
         <activity
-            android:name=".SplashScreen"
+            android:name="com.Math.MathReasoning.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,38 +25,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CustomLogin"
+            android:name="com.Math.MathReasoning.CustomLogin"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".DashBoard"
+            android:name="com.Math.MathReasoning.DashBoard"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Game_Screen"
+            android:name="com.Math.MathReasoning.Game_Screen"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Levels_Screen"
+            android:name="com.Math.MathReasoning.Levels_Screen"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Settings"
+            android:name="com.Math.MathReasoning.Settings"
             android:label="@string/title_activity_settings"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".GlobalRanking"
+            android:name="com.Math.MathReasoning.GlobalRanking"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PrivacyPolicy"
+            android:name="com.Math.MathReasoning.PrivacyPolicy"
             android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.Math.MathReasoning"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+
+        </provider>
     </application>
 
 </manifest>
