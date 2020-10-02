@@ -23,10 +23,11 @@
         android:id="@+id/fireworks"
         android:layout_width="match_parent"
         android:layout_height="478dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_fileName="construction.json"
         app:lottie_loop="true"
@@ -36,7 +37,7 @@
         android:id="@+id/mainmenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/button_style2"
         android:padding="10dp"
         android:paddingLeft="15dp"
@@ -44,13 +45,15 @@
         android:text="Main menu"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/fireworks" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="440dp"
         android:fontFamily="@font/cantora_one"
         android:text="We are still working on it."
         android:textAlignment="center"
@@ -58,6 +61,13 @@
         app:layout_constraintEnd_toEndOf="@+id/fireworks"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/fireworks"
-        app:layout_constraintTop_toBottomOf="@+id/fireworks" />
+        app:layout_constraintTop_toTopOf="@+id/fireworks" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="510dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,13 +18,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="#EFEDED">
+            android:background="#ffffff">
 
             <LinearLayout
                 android:id="@+id/instagramSection"
                 android:layout_width="325dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/button_style"
                 android:clickable="true"
                 android:focusable="true"
                 android:orientation="horizontal"
@@ -34,6 +35,7 @@
                     android:id="@+id/instagramlogo"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
+                    android:layout_marginLeft="10dp"
                     android:src="@drawable/instagramlogo"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -62,6 +64,7 @@
                         android:layout_margin="10dp"
                         android:clickable="true"
                         android:focusable="true"
+                        android:background="@drawable/button_style"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +75,7 @@
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:src="@drawable/facebooklogo"
+                            android:layout_marginLeft="10dp"
                             app:layout_constraintEnd_toEndOf="@+id/instagramlogo"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="@+id/instagramlogo"
@@ -101,6 +105,7 @@
                         android:layout_marginBottom="16dp"
                         android:orientation="horizontal"
                         android:layout_margin="10dp"
+                        android:background="@drawable/button_style"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent">
@@ -109,6 +114,7 @@
                             android:id="@+id/youtubelogo"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
+                            android:layout_marginLeft="10dp"
                             android:src="@drawable/youtubelogo"
                             app:layout_constraintEnd_toEndOf="@+id/facebooklogo"
                             app:layout_constraintHorizontal_bias="0.0"

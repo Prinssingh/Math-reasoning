@@ -86,9 +86,14 @@ public class ImpFunctions{
         progressDialog.show();
 
         mdbRef = FirebaseDatabase.getInstance().getReference();
-        String Name=sp.getString("User_Name","NoName");
-        String Email =sp.getString("User_Email","Noemail@gmail.com");
-        String key =sp.getString("User_UID","no");
+        String Name=sp.getString("User_Name","");
+        String Email =sp.getString("User_Email","");
+        String key =sp.getString("User_UID","");
+
+        if(Name.isEmpty()){
+            progressDialog.hide();
+            return;
+        }
 
         int Level =sp.getInt("CompletedLevels",0);
         int Hint =sp.getInt("Hint",0);

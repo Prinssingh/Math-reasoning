@@ -117,46 +117,29 @@ public class GlobalRanking extends AppCompatActivity {
                     i++;
                 }
 
-                PopulateList();
+                if(name.size()>1){
+                    PopulateList();
+                }
+                else{UnderConstDialog();}
+
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                final Intent homeintent = new Intent(GlobalRanking.this, DashBoard.class);
                 Toast.makeText(GlobalRanking.this,"Exception:"+ databaseError,Toast.LENGTH_LONG).show();
-                progressBar.setVisibility(View.INVISIBLE);
-                View UnderConstractionView= getLayoutInflater().inflate(R.layout.under_construction,null);
-                AlertDialog.Builder UnderConstDialog = new AlertDialog.Builder(GlobalRanking.this,android.R.style.Theme_Translucent_NoTitleBar);
-                UnderConstDialog.setView(UnderConstractionView);
-                UnderConstDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        finish();
-                    }
-                });
-                Button mainmenu = UnderConstractionView.findViewById(R.id.mainmenu);
-                final AlertDialog Constraction=UnderConstDialog.create();
-                Constraction.show();
-                mainmenu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(homeintent);
-                        Constraction.dismiss();
-                        finish();
-                    }
-                });
-
-
+                UnderConstDialog();
             }
         };
         try {
             mdbRef.addValueEventListener(postListener);
         }catch(Exception e){
             Toast.makeText(this, "Exception:-"+e, Toast.LENGTH_SHORT).show();
+            UnderConstDialog();
         }
         catch(Error er){
             Toast.makeText(this, "Error:-"+er, Toast.LENGTH_SHORT).show();
+            UnderConstDialog();
         }
     }
 
@@ -181,6 +164,32 @@ public class GlobalRanking extends AppCompatActivity {
             list.setAdapter(adapter);
             progressBar.setVisibility(View.INVISIBLE);
         }catch(Exception ignored){}
+    }
+
+
+    public void UnderConstDialog(){
+        final Intent homeintent = new Intent(GlobalRanking.this, DashBoard.class);
+         progressBar.setVisibility(View.INVISIBLE);
+        View UnderConstractionView= getLayoutInflater().inflate(R.layout.under_construction,null);
+        AlertDialog.Builder UnderConstDialog = new AlertDialog.Builder(GlobalRanking.this,android.R.style.Theme_Translucent_NoTitleBar);
+        UnderConstDialog.setView(UnderConstractionView);
+        UnderConstDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                finish();
+            }
+        });
+        Button mainmenu = UnderConstractionView.findViewById(R.id.mainmenu);
+        final AlertDialog Constraction=UnderConstDialog.create();
+        Constraction.show();
+        mainmenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(homeintent);
+                Constraction.dismiss();
+                finish();
+            }
+        });
     }
 
 }
