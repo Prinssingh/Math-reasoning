@@ -44,7 +44,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.Math.MathReasoning.GlobalRanking"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name="com.Math.MathReasoning.PrivacyPolicy"
             android:screenOrientation="portrait" />

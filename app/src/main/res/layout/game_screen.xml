@@ -216,6 +216,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:orientation="vertical"
+                            android:background="@drawable/button_style"
                             android:textAlignment="center">
 
                             <TextView
@@ -244,6 +245,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:background="@drawable/button_style"
                             android:orientation="vertical">
 
                             <TextView
@@ -272,6 +274,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:background="@drawable/button_style"
                             android:orientation="vertical"
                             android:textAlignment="center">
 
@@ -302,6 +305,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:orientation="vertical"
+                            android:background="@drawable/button_style"
                             android:textAlignment="center">
 
                             <TextView
@@ -330,6 +334,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:background="@drawable/button_style"
                             android:orientation="vertical"
                             android:textAlignment="center">
 
@@ -379,6 +384,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:background="@drawable/button_style"
                             android:orientation="vertical"
                             android:textAlignment="center">
 
@@ -408,6 +414,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:background="@drawable/button_style"
                             android:orientation="vertical"
                             android:textAlignment="center">
 
@@ -438,6 +445,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:orientation="vertical"
+                            android:background="@drawable/button_style"
                             android:textAlignment="center">
 
                             <TextView
@@ -467,6 +475,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:orientation="vertical"
+                            android:background="@drawable/button_style"
                             android:textAlignment="center">
 
                             <TextView
@@ -496,6 +505,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:background="@drawable/button_style"
                             android:orientation="vertical"
                             android:textAlignment="center">
 

@@ -11,106 +11,123 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center"
             android:background="#EFEDED">
 
-
-
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/instagramSection"
+                android:layout_width="325dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical"
-                android:gravity="center"
+                android:layout_margin="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
                 >
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <ImageView
+                    android:id="@+id/instagramlogo"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/instagramlogo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
-                    android:layout_height="240dp">
-
-                    <ImageView
-                        android:id="@+id/instagramlogo"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_marginTop="16dp"
-                        android:src="@drawable/instagramlogo"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="24dp"
-                        android:fontFamily="@font/cantora_one"
-                        android:text="Follow us on Intagram"
-                        android:textAlignment="center"
-                        android:textSize="25dp"
-                        app:layout_constraintStart_toEndOf="@+id/instagramlogo"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/youtubelogo"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_marginTop="24dp"
-                        android:src="@drawable/youtubelogo"
-                        app:layout_constraintEnd_toEndOf="@+id/facebooklogo"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/facebooklogo"
-                        app:layout_constraintTop_toBottomOf="@+id/facebooklogo" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="44dp"
-                        android:fontFamily="@font/cantora_one"
-                        android:text="Subscribe on youtube"
-                        android:textAlignment="center"
-                        android:textSize="25dp"
-                        app:layout_constraintStart_toEndOf="@+id/youtubelogo"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-                    <ImageView
-                        android:id="@+id/facebooklogo"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_marginTop="24dp"
-                        android:src="@drawable/facebooklogo"
-                        app:layout_constraintEnd_toEndOf="@+id/instagramlogo"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/instagramlogo"
-                        app:layout_constraintTop_toBottomOf="@+id/instagramlogo" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="40dp"
-                        android:fontFamily="@font/cantora_one"
-                        android:text="Follow on facebook"
-                        android:textAlignment="center"
-                        android:textSize="25dp"
-                        app:layout_constraintStart_toEndOf="@+id/facebooklogo"
-                        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/cantora_one"
+                    android:text="Follow us on Intagram"
+                    android:textAlignment="center"
+                    android:textSize="25dp"
+                    app:layout_constraintStart_toEndOf="@+id/instagramlogo"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/facebookSection"
+                        android:layout_width="325dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
 
+                        <ImageView
+                            android:id="@+id/facebooklogo"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/facebooklogo"
+                            app:layout_constraintEnd_toEndOf="@+id/instagramlogo"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/instagramlogo"
+                            app:layout_constraintTop_toBottomOf="@+id/instagramlogo" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/cantora_one"
+                            android:text="Follow on facebook"
+                            android:textAlignment="center"
+                            android:textSize="25dp"
+                            app:layout_constraintStart_toEndOf="@+id/facebooklogo"
+                            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/youtubeSection"
+                        android:layout_width="325dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal"
+                        android:layout_margin="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <ImageView
+                            android:id="@+id/youtubelogo"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/youtubelogo"
+                            app:layout_constraintEnd_toEndOf="@+id/facebooklogo"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/facebooklogo"
+                            app:layout_constraintTop_toBottomOf="@+id/facebooklogo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/cantora_one"
+                            android:text="Subscribe on youtube"
+                            android:textAlignment="center"
+                            android:textSize="25dp"
+                            android:layout_marginStart="15dp"
+                            app:layout_constraintStart_toEndOf="@+id/youtubelogo"
+                            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                    </LinearLayout>
 
         </LinearLayout>
 

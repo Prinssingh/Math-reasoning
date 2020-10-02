@@ -1,19 +1,24 @@
 package com.Math.MathReasoning;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,12 +63,9 @@ public class GlobalRanking extends AppCompatActivity {
 
         list =findViewById(R.id.list);
         progressBar=findViewById(R.id.progressBar);
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                getFireBaseData();
-            }
-        });
+
+        getFireBaseData();
+
 
     }
 
@@ -74,6 +76,8 @@ public class GlobalRanking extends AppCompatActivity {
     }
 
     public void getFireBaseData() {
+        
+        //FirebaseApp.initializeApp(getApplicationContext());
 
         DatabaseReference mdbRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -82,7 +86,7 @@ public class GlobalRanking extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 allData.clear();
                  for (DataSnapshot snap: dataSnapshot.getChildren()) {
-                     if(String.valueOf(snap.getKey()).equals(sp.getString("User_UID", "no"))) {
+                     if(String.valueOf(snap.getKey()).equals(sp.getString("User_UID", ""))) {
                          Mydata=snap.getValue(UserData.class); }
                      UserData p=snap.getValue(UserData.class);
                      if(p!=null){
@@ -104,48 +108,79 @@ public class GlobalRanking extends AppCompatActivity {
 
                 int i=1;
                 for (UserData user: allData){
+                    if(user.getName().isEmpty()){
+                        continue;
+                    }
                     rank.add(i);
                     name.add(user.getName());
                     level.add(user.getLevel());
                     i++;
                 }
 
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                   PopulateList();
-                    }
-                });
-
+                PopulateList();
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w("TAG", "................................loadPost:onCancelled", databaseError.toException());
-                // ...
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                final Intent homeintent = new Intent(GlobalRanking.this, DashBoard.class);
+                Toast.makeText(GlobalRanking.this,"Exception:"+ databaseError,Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.INVISIBLE);
+                View UnderConstractionView= getLayoutInflater().inflate(R.layout.under_construction,null);
+                AlertDialog.Builder UnderConstDialog = new AlertDialog.Builder(GlobalRanking.this,android.R.style.Theme_Translucent_NoTitleBar);
+                UnderConstDialog.setView(UnderConstractionView);
+                UnderConstDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        finish();
+                    }
+                });
+                Button mainmenu = UnderConstractionView.findViewById(R.id.mainmenu);
+                final AlertDialog Constraction=UnderConstDialog.create();
+                Constraction.show();
+                mainmenu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(homeintent);
+                        Constraction.dismiss();
+                        finish();
+                    }
+                });
+
+
             }
         };
-        mdbRef.addValueEventListener(postListener);
-
+        try {
+            mdbRef.addValueEventListener(postListener);
+        }catch(Exception e){
+            Toast.makeText(this, "Exception:-"+e, Toast.LENGTH_SHORT).show();
+        }
+        catch(Error er){
+            Toast.makeText(this, "Error:-"+er, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void SortAllUsers(){
         if (allData !=null){
-            Collections.sort(allData,Collections.reverseOrder());
+            try{
+                  Collections.sort(allData,Collections.reverseOrder());
+            }
+            catch(Exception E){
+                Log.d("EXCEPTION","AT Sorting Global Data");
+            }
         }
     }
 
     @SuppressLint("ResourceAsColor")
     public void PopulateList(){
-        Integer[] Rank = rank.toArray(new Integer[0]);
-        String[] Name = name.toArray(new String[0]);
-        Integer[] Level = level.toArray(new Integer[0]);
-        ListAdapter adapter=new ListAdapter(this,Rank,Name,Level);
-        list.setAdapter(adapter);
-
-
-        progressBar.setVisibility(View.INVISIBLE);
+        try{
+            Integer[] Rank = rank.toArray(new Integer[0]);
+            String[] Name = name.toArray(new String[0]);
+            Integer[] Level = level.toArray(new Integer[0]);
+            ListAdapter adapter=new ListAdapter(this,Rank,Name,Level);
+            list.setAdapter(adapter);
+            progressBar.setVisibility(View.INVISIBLE);
+        }catch(Exception ignored){}
     }
 
 }

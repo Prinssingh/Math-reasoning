@@ -8,17 +8,70 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1009190761338:android:ff7e61b045d0b565a59cc3",
+        "mobilesdk_app_id": "1:1009190761338:android:26516daab05eac89a59cc3",
         "android_client_info": {
           "package_name": "com.Math.MathReasoning"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1009190761338-drrt6pgjr57fgrkd47u89sckiohvpaam.apps.googleusercontent.com",
+          "client_id": "1009190761338-m28bjcqkbbmpro0rn1ddq9293t6mcf09.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.Math.MathReasoning",
+            "certificate_hash": "f060681d2fca81fe7c0d8f5f0ad8f2c75675bedd"
+          }
+        },
+        {
+          "client_id": "1009190761338-ml6ccd8e4gfpodh870316b0a63ab8kmj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Math.MathReasoning",
+            "certificate_hash": "ce988831f7fdf96cae325f0efa1b8002cdb63fd8"
+          }
+        },
+        {
+          "client_id": "1009190761338-gvgnc4ed08idp7ad878nia3pi63e5d0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV8eVQJA3ovZUjBIojuaeUOv7eBJDwZBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009190761338-gvgnc4ed08idp7ad878nia3pi63e5d0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009190761338:android:ff7e61b045d0b565a59cc3",
+        "android_client_info": {
+          "package_name": "com.Maths.mathematicalreasoning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009190761338-6ug42erhq8dfd2hcs1tjai39f63kjag6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Maths.mathematicalreasoning",
+            "certificate_hash": "ce988831f7fdf96cae325f0efa1b8002cdb63fd8"
+          }
+        },
+        {
+          "client_id": "1009190761338-hl983aa8fcl4q8ufo6dh6i1putlnfk89.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Maths.mathematicalreasoning",
             "certificate_hash": "f060681d2fca81fe7c0d8f5f0ad8f2c75675bedd"
           }
         },

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,9 @@ public class Settings extends AppCompatActivity {
         private SharedPreferences.Editor editor;
         ImpFunctions impFun;
         private AlertDialog.Builder ContactAlert;
+        private LinearLayout instagram;
+        private LinearLayout facebook;
+        private LinearLayout youtube;
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
@@ -146,8 +150,14 @@ public class Settings extends AppCompatActivity {
                                     startActivity(LoginIntent);
 
                                 } else {
+                                    String Name =sp.getString("User_Name","NoName");
+                                    if(!Name.isEmpty()){
                                     impFun.SyncData();
                                     editor.putLong("LastSyncTime", System.currentTimeMillis()).commit();
+                                    }
+                                    else{
+                                        Toast.makeText(requireContext(),"Please fill your name for sync globally",Toast.LENGTH_LONG).show();
+                                    }
                                 }
 
                             } else {
@@ -231,6 +241,7 @@ public class Settings extends AppCompatActivity {
             Save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    impFun.OnclickSound();
                     if(!Name.getText().toString().isEmpty()) {
                         editor.putString("User_Name",Name.getText().toString()).commit();
                         editor.putInt("NameChanged",sp.getInt("NameChanged",0)+1).commit();
@@ -242,6 +253,7 @@ public class Settings extends AppCompatActivity {
             Cancle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    impFun.OnclickSound();
                     ShowNameChangeDialog.dismiss();
                 }
             });
@@ -312,12 +324,15 @@ public class Settings extends AppCompatActivity {
             Cancle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ContactDilog.dismiss();
+
+                    impFun.OnclickSound();ContactDilog.dismiss();
                 }
             });
             close.setOnClickListener (new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    impFun.OnclickSound();
+
                     ContactDilog.dismiss();
                 }
             });
@@ -325,6 +340,7 @@ public class Settings extends AppCompatActivity {
             Send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    impFun.OnclickSound();
                     SendMail(Title.getText().toString(),message.getText().toString());
                     ContactDilog.dismiss();
                 }
@@ -354,9 +370,9 @@ public class Settings extends AppCompatActivity {
             Follow =new AlertDialog.Builder(requireContext());
             View FollowView = getLayoutInflater().inflate(R.layout.followus_page,null);
             Follow.setView(FollowView);
-            ImageView instagram = FollowView.findViewById(R.id.instagramlogo);
-            ImageView facebook = FollowView.findViewById(R.id.facebooklogo);
-            ImageView youtube = FollowView.findViewById(R.id.youtubelogo);
+            instagram = FollowView.findViewById(R.id.instagramSection);
+            facebook = FollowView.findViewById(R.id.facebookSection);
+            youtube = FollowView.findViewById(R.id.youtubeSection);
 
             final AlertDialog ShowFollowDilog = Follow.create();
             Objects.requireNonNull(ShowFollowDilog.getWindow()).setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -365,12 +381,16 @@ public class Settings extends AppCompatActivity {
             instagram.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   OpenInsta();
+                    desableFollow();
+                    impFun.OnclickSound();
+                    OpenInsta();
                 }
             });
             facebook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    desableFollow();
+                    impFun.OnclickSound();
                     OpenFaceook();
                 }
             });
@@ -378,7 +398,9 @@ public class Settings extends AppCompatActivity {
             youtube.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   OpenYoutube();
+                    desableFollow();
+                    impFun.OnclickSound();
+                    OpenYoutube();
                 }
             });
 
@@ -398,6 +420,8 @@ public class Settings extends AppCompatActivity {
                 intentAiguilleur = new Intent(Intent.ACTION_VIEW, Uri.parse(path));
             }
             requireActivity().startActivity(intentAiguilleur);
+
+            enableFollow();
         }
 
         private  void OpenFaceook() {
@@ -407,8 +431,7 @@ public class Settings extends AppCompatActivity {
             } catch (Exception e) {
                 requireActivity().startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/thefutureprogrammers/")));
             }
-
-
+            enableFollow();
         }
 
         private void OpenYoutube(){
@@ -421,6 +444,28 @@ public class Settings extends AppCompatActivity {
             } catch (ActivityNotFoundException ex) {
                 requireActivity().startActivity(webIntent);
             }
+            enableFollow();
+        }
+
+        private void enableFollow(){
+            try{
+                instagram.setEnabled(true);
+                facebook.setEnabled(true);
+                youtube.setEnabled(true);
+            }
+            catch(Exception ignored){ }
+        }
+
+        private void desableFollow(){
+            try{
+                instagram.setEnabled(true);
+                facebook.setEnabled(true);
+                youtube.setEnabled(true);
+            }
+            catch(Exception ignored){ }
         }
     }
+
+
+
 }

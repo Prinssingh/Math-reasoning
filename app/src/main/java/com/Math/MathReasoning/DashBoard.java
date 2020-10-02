@@ -170,7 +170,7 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
-       new Thread(new Zoom()).start();
+       //new Thread(new Zoom()).start();
 
     }
 

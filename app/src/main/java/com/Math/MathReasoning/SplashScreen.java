@@ -66,7 +66,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
         //Save Progress if 7 days Complete!!
-        if (isAutoSyncAVL() &&sp.getString("User_Name","NoName")!= "NoName") {
+        if (isAutoSyncAVL() && sp.getString("User_Name","NoName")!= "NoName" && sp.getBoolean("Login",false)) {
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
@@ -85,29 +85,32 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void autoSaveProgress(){
-        DatabaseReference mdbRef;
-        mdbRef = FirebaseDatabase.getInstance().getReference();
-        String Name=sp.getString("User_Name","NoName");
-        String Email =sp.getString("User_Email","Noemail@gmail.com");
-        String key =sp.getString("User_UID","no");
-        int Level =sp.getInt("CompletedLevels",0);
-        int Hint =sp.getInt("Hint",0);
-        int Solution =sp.getInt("Solution",0);
-        long DT =sp.getLong("DT",System.currentTimeMillis());
+        try {
+            DatabaseReference mdbRef;
+            mdbRef = FirebaseDatabase.getInstance().getReference();
+            String Name = sp.getString("User_Name", "NoName");
+            String Email = sp.getString("User_Email", "Noemail@gmail.com");
+            String key = sp.getString("User_UID", "no");
+            int Level = sp.getInt("CompletedLevels", 0);
+            int Hint = sp.getInt("Hint", 0);
+            int Solution = sp.getInt("Solution", 0);
+            long DT = sp.getLong("DT", System.currentTimeMillis());
 
-        UserData object =new UserData(Name,Email,Level,Hint,Solution,DT);
+            UserData object = new UserData(Name, Email, Level, Hint, Solution, DT);
 
-        Map<String,Object> map1 = object.toMap();
+            Map<String, Object> map1 = object.toMap();
 
-        Map<String, Object> childUpdates = new HashMap<>();
+            Map<String, Object> childUpdates = new HashMap<>();
 
-        childUpdates.put("/Users/" + key, map1);
-        mdbRef.updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                editor.putLong("AutoSync",System.currentTimeMillis()).apply();
-            }
-        });
+            childUpdates.put("/Users/" + key, map1);
+            mdbRef.updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    editor.putLong("AutoSync", System.currentTimeMillis()).apply();
+                }
+            });
+        }
+        catch(Exception ignored){}
 
 
     }

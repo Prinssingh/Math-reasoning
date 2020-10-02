@@ -3,74 +3,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EFEDED"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center">
 
-    <LinearLayout
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fireworks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        app:lottie_fileName="fireworks.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:gravity="center"
-        android:background="#EFEDED">
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/correct"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/correct" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="CORRECT"
             android:fontFamily="@font/cantora_one"
-            android:textSize="40dp"/>
+            android:text="CORRECT"
+            android:textAlignment="center"
+            android:textSize="40dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Go to the next level"
             android:textAlignment="center"
-            android:textSize="25dp"
-            android:text="Go to the next level"/>
+            android:textSize="25dp" />
 
 
-       <androidx.cardview.widget.CardView
-           android:id="@+id/NextGame"
-           android:layout_margin="30dp"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           app:cardCornerRadius="8dp"
-           app:cardBackgroundColor="#00c2c3">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/NextGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            app:cardBackgroundColor="#00c2c3"
+            app:cardCornerRadius="8dp">
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:orientation="horizontal"
-               android:background="@drawable/button_style2"
-               >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_style2"
+                android:orientation="horizontal">
 
-               <ImageView
-                   android:layout_marginStart="20dp"
-                   android:layout_width="50dp"
-                   android:layout_height="45dp"
-                   android:layout_gravity="center"
-                   android:src="@drawable/nextbuttonlogo"/>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/nextbuttonlogo" />
 
-               <TextView
-                   android:paddingRight="20dp"
-                   android:layout_width="wrap_content"
-                   android:layout_height="45dp"
-                   android:text="NEXT"
-                   android:layout_marginRight="20dp"
-                   android:textStyle="bold"
-                   android:layout_gravity="center"
-                   android:textColor="@color/colorWhite"
-                   android:textSize="30dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="20dp"
+                    android:paddingRight="20dp"
+                    android:text="NEXT"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
-           </LinearLayout>
+            </LinearLayout>
 
-       </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
     </LinearLayout>
