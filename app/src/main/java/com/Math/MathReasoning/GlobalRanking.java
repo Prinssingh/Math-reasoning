@@ -13,6 +13,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -30,17 +32,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class GlobalRanking extends AppCompatActivity {
-    ListView list;
-    ProgressBar progressBar;
-    SharedPreferences sp;
-    UserData Mydata;
+//    ListView list;
+     ProgressBar progressBar;
+     SharedPreferences sp;
+     WebView GlobalRanks;
+//    UserData Mydata;
+//
+//    List<UserData> allData =new ArrayList<>();
+//    List<Integer> rank =new ArrayList<>();
+//    List<String>  name =new ArrayList<>();
+//    List<Integer> level =new ArrayList<>();
 
-    List<UserData> allData =new ArrayList<>();
-    List<Integer> rank =new ArrayList<>();
-    List<String>  name =new ArrayList<>();
-    List<Integer> level =new ArrayList<>();
 
-
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +65,29 @@ public class GlobalRanking extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        list =findViewById(R.id.list);
-        progressBar=findViewById(R.id.progressBar);
+        try{
+            GlobalRanks =findViewById(R.id.GlobalRanks);
+            progressBar=findViewById(R.id.progressBar);
 
-        getFireBaseData();
+            GlobalRanks.getSettings().setJavaScriptEnabled(true);
+            GlobalRanks.getSettings().setLoadWithOverviewMode(true);
+            GlobalRanks.getSettings().setUseWideViewPort(true);
+            GlobalRanks.setWebViewClient(new WebViewClient(){
+
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
+                    return true;
+                }
+                @Override
+                public void onPageFinished(WebView view, final String url) {
+                    super.onPageFinished(view, url);
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+
+            GlobalRanks.loadUrl("https://math-reasoning.firebaseapp.com");
+        }catch(Exception | Error e){UnderConstDialog();}
 
 
     }
@@ -75,96 +98,96 @@ public class GlobalRanking extends AppCompatActivity {
         return true;
     }
 
-    public void getFireBaseData() {
-        
-        //FirebaseApp.initializeApp(getApplicationContext());
-
-        DatabaseReference mdbRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                allData.clear();
-                 for (DataSnapshot snap: dataSnapshot.getChildren()) {
-                     if(String.valueOf(snap.getKey()).equals(sp.getString("User_UID", ""))) {
-                         Mydata=snap.getValue(UserData.class); }
-                     UserData p=snap.getValue(UserData.class);
-                     if(p!=null){
-                         allData.add(p);
-                     }
-                 }
-
-                 // Sorting data
-                SortAllUsers();
-
-               //Clear and Reset the List
-                rank.clear();
-                name.clear();
-                level.clear();
-
-                rank.add(0);
-                name.add("Name");
-                level.add(0);
-
-                int i=1;
-                for (UserData user: allData){
-                    if(user.getName().isEmpty()){
-                        continue;
-                    }
-                    rank.add(i);
-                    name.add(user.getName());
-                    level.add(user.getLevel());
-                    i++;
-                }
-
-                if(name.size()>1){
-                    PopulateList();
-                }
-                else{UnderConstDialog();}
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(GlobalRanking.this,"Exception:"+ databaseError,Toast.LENGTH_LONG).show();
-                UnderConstDialog();
-            }
-        };
-        try {
-            mdbRef.addValueEventListener(postListener);
-        }catch(Exception e){
-            Toast.makeText(this, "Exception:-"+e, Toast.LENGTH_SHORT).show();
-            UnderConstDialog();
-        }
-        catch(Error er){
-            Toast.makeText(this, "Error:-"+er, Toast.LENGTH_SHORT).show();
-            UnderConstDialog();
-        }
-    }
-
-    public void SortAllUsers(){
-        if (allData !=null){
-            try{
-                  Collections.sort(allData,Collections.reverseOrder());
-            }
-            catch(Exception E){
-                Log.d("EXCEPTION","AT Sorting Global Data");
-            }
-        }
-    }
-
-    @SuppressLint("ResourceAsColor")
-    public void PopulateList(){
-        try{
-            Integer[] Rank = rank.toArray(new Integer[0]);
-            String[] Name = name.toArray(new String[0]);
-            Integer[] Level = level.toArray(new Integer[0]);
-            ListAdapter adapter=new ListAdapter(this,Rank,Name,Level);
-            list.setAdapter(adapter);
-            progressBar.setVisibility(View.INVISIBLE);
-        }catch(Exception ignored){}
-    }
+//    public void getFireBaseData() {
+//
+//        //FirebaseApp.initializeApp(getApplicationContext());
+//
+//        DatabaseReference mdbRef = FirebaseDatabase.getInstance().getReference().child("Users");
+//
+//        ValueEventListener postListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                allData.clear();
+//                 for (DataSnapshot snap: dataSnapshot.getChildren()) {
+//                     if(String.valueOf(snap.getKey()).equals(sp.getString("User_UID", ""))) {
+//                         Mydata=snap.getValue(UserData.class); }
+//                     UserData p=snap.getValue(UserData.class);
+//                     if(p!=null){
+//                         allData.add(p);
+//                     }
+//                 }
+//
+//                 // Sorting data
+//                SortAllUsers();
+//
+//               //Clear and Reset the List
+//                rank.clear();
+//                name.clear();
+//                level.clear();
+//
+//                rank.add(0);
+//                name.add("Name");
+//                level.add(0);
+//
+//                int i=1;
+//                for (UserData user: allData){
+//                    if(user.getName().isEmpty()){
+//                        continue;
+//                    }
+//                    rank.add(i);
+//                    name.add(user.getName());
+//                    level.add(user.getLevel());
+//                    i++;
+//                }
+//
+//                if(name.size()>1){
+//                    PopulateList();
+//                }
+//                else{UnderConstDialog();}
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(GlobalRanking.this,"Exception:"+ databaseError,Toast.LENGTH_LONG).show();
+//                UnderConstDialog();
+//            }
+//        };
+//        try {
+//            mdbRef.addValueEventListener(postListener);
+//        }catch(Exception e){
+//            Toast.makeText(this, "Exception:-"+e, Toast.LENGTH_SHORT).show();
+//            UnderConstDialog();
+//        }
+//        catch(Error er){
+//            Toast.makeText(this, "Error:-"+er, Toast.LENGTH_SHORT).show();
+//            UnderConstDialog();
+//        }
+//    }
+//
+//    public void SortAllUsers(){
+//        if (allData !=null){
+//            try{
+//                  Collections.sort(allData,Collections.reverseOrder());
+//            }
+//            catch(Exception E){
+//                Log.d("EXCEPTION","AT Sorting Global Data");
+//            }
+//        }
+//    }
+//
+//    @SuppressLint("ResourceAsColor")
+//    public void PopulateList(){
+//        try{
+//            Integer[] Rank = rank.toArray(new Integer[0]);
+//            String[] Name = name.toArray(new String[0]);
+//            Integer[] Level = level.toArray(new Integer[0]);
+//            ListAdapter adapter=new ListAdapter(this,Rank,Name,Level);
+//            list.setAdapter(adapter);
+//            progressBar.setVisibility(View.INVISIBLE);
+//        }catch(Exception ignored){}
+//    }
 
 
     public void UnderConstDialog(){

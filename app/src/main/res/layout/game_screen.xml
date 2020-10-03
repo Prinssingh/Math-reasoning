@@ -145,22 +145,15 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center">
 
-                    <TextView
+                    <ImageButton
                         android:id="@+id/getHint"
-                        android:layout_width="18dp"
-                        android:layout_height="50dp"
-                        android:text=" ? "
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="#00c2cb"
-                        android:textStyle="bold"
-                        android:textSize="46sp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/hint"
-                        android:clickable="true"
-                        android:focusable="true" />
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/hint" />
 
                 </LinearLayout>
 

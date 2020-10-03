@@ -113,7 +113,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         userdisply=findViewById(R.id.userdisplay);
         cleardisplay =findViewById(R.id.cleardisplay);
         Wrong=findViewById(R.id.WrongAns);
-        TextView getHint = findViewById(R.id.getHint);
+        ImageButton getHint = findViewById(R.id.getHint);
         GoBack =findViewById(R.id.goBAck);
         sharequestion=findViewById(R.id.shareQuestion);
         CurrentLevel =findViewById(R.id.currentLevel);
@@ -413,14 +413,20 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         }
 
         if(adAVL()){
-            HintRewardedVideoAd.show();
-            adsCount+=1;
-            if(adsCount%2==0){
-                editor.putLong("LastAdTime",System.currentTimeMillis()).commit();
-            }
+            try {
+                HintRewardedVideoAd.show();
+                try {
+                    hint123.dismiss();
+                }catch(Exception |Error ignored){}
+                adsCount += 1;
+                if (adsCount % 2 == 0) {
+                    editor.putLong("LastAdTime", System.currentTimeMillis()).commit();
+                }
+            }catch(Exception | Error ignored){}
         }
         else{
             try {
+
                 adsNotLoaded.setVisibility(View.VISIBLE);
             }catch (Exception ignored){}
         }
@@ -442,6 +448,10 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         }
         if(adAVL()){
             SolutionRewardedVideoAd.show();
+            try {
+                hint123.dismiss();
+            }catch(Exception |Error ignored){}
+
             adsCount+=1;
             if(adsCount%2==0){
                 editor.putLong("LastAdTime",System.currentTimeMillis()).commit();

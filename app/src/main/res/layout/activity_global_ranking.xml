@@ -23,6 +23,22 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
+
+
+<!--    <ListView-->
+<!--        android:id="@+id/list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:layout_marginTop="55dp"-->
+<!--        android:scrollbars="vertical"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+    <WebView
+        android:id="@+id/GlobalRanks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="80dp"
@@ -33,18 +49,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="55dp"
-        android:scrollbars="vertical"
-        tools:ignore="MissingConstraints" />
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
