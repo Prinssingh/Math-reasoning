@@ -33,7 +33,6 @@ import java.util.List;
 
 public class GlobalRanking extends AppCompatActivity {
 //    ListView list;
-     ProgressBar progressBar;
      SharedPreferences sp;
      WebView GlobalRanks;
 //    UserData Mydata;
@@ -67,7 +66,6 @@ public class GlobalRanking extends AppCompatActivity {
 
         try{
             GlobalRanks =findViewById(R.id.GlobalRanks);
-            progressBar=findViewById(R.id.progressBar);
 
             GlobalRanks.getSettings().setJavaScriptEnabled(true);
             GlobalRanks.getSettings().setLoadWithOverviewMode(true);
@@ -82,7 +80,7 @@ public class GlobalRanking extends AppCompatActivity {
                 @Override
                 public void onPageFinished(WebView view, final String url) {
                     super.onPageFinished(view, url);
-                    progressBar.setVisibility(View.GONE);
+
                 }
             });
 
@@ -192,7 +190,6 @@ public class GlobalRanking extends AppCompatActivity {
 
     public void UnderConstDialog(){
         final Intent homeintent = new Intent(GlobalRanking.this, DashBoard.class);
-         progressBar.setVisibility(View.INVISIBLE);
         View UnderConstractionView= getLayoutInflater().inflate(R.layout.under_construction,null);
         AlertDialog.Builder UnderConstDialog = new AlertDialog.Builder(GlobalRanking.this,android.R.style.Theme_Translucent_NoTitleBar);
         UnderConstDialog.setView(UnderConstractionView);

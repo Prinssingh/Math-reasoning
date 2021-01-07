@@ -132,6 +132,7 @@ public class Login extends Fragment implements View.OnClickListener {
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         impFun.OnclickSound();

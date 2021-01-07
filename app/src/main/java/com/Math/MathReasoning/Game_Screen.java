@@ -192,8 +192,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 setUserDisplay("9");
                 break;
             case R.id.cleardisplay:
-                userdisply.setText("");
-                UD="";
+                ClearDisplay();
                 break;
             case  R.id.getHint:
                 if (impFun.isConnectedToInternet()){
@@ -212,6 +211,18 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
 
     }
+    private  void ClearDisplay(){
+        try{
+            String data=userdisply.getText().toString();
+            data = data.substring(0, data.length() - 1);
+            userdisply.setText(data);
+            UD = data;
+        }catch(Error |Exception e){
+            userdisply.setText("");
+            UD = "";
+        }
+
+    }
 
     public void setUserDisplay(String d){
         if (userdisply.getText().length()<=5) {
@@ -224,12 +235,12 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     }
 
     public void newGame() {
-        CurrentLevel.setText("Level : "+level);
         if(level >impFun.getTotalLevels())
         {
             level=1;
             Completed();
         }
+        CurrentLevel.setText("Level : "+level);
         questionImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier("question"+level, "drawable", getPackageName()));
         HintImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier( "hint"+level , "drawable", getPackageName()));
         SolutionImg = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier( "solution"+level , "drawable", getPackageName()));
@@ -319,7 +330,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             public void onClick(View view) {
                 impFun.OnclickSound();
                 // Show A video ad
-                ShowHintAd();
+                ShowHintAd(); // For Testing  : ShowSolution(HintImg,"Hint");
+
 
             }
         });
@@ -328,7 +340,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 impFun.OnclickSound();
-                ShowSolutionAd();
+                ShowSolutionAd(); // For Testing : ShowSolution(SolutionImg,"Solution");
+
             }
         });
 
@@ -561,7 +574,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
     public boolean adAVL(){
         if(adsCount%2==0){
-            return System.currentTimeMillis() - sp.getLong("LastAdTime", 0) >= 1000 * 60 * 5;
+            return System.currentTimeMillis() - sp.getLong("LastAdTime", 0) >= 1000 * 60 * 15;
         }
         else return true;
     }

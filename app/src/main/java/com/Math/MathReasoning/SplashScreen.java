@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,7 +66,7 @@ public class SplashScreen extends AppCompatActivity {
         }, 4000);
 
 
-        //Save Progress if 7 days Complete!!
+             //Save Progress if 7 days Complete!!
         if (isAutoSyncAVL() && sp.getString("User_Name","NoName")!= "NoName" && sp.getBoolean("Login",false)) {
             new Handler().post(new Runnable() {
                 @Override
@@ -81,20 +82,29 @@ public class SplashScreen extends AppCompatActivity {
         long lastTime =sp.getLong("AutoSync",0);
         long nowTime =System.currentTimeMillis();
         long gap = nowTime-lastTime;
-        return gap >= 86400000 * 7;
+        return gap >= 86400000 ;//Auto Synce Time for 24 HR--> 86400000
     }
 
     public void autoSaveProgress(){
         try {
             DatabaseReference mdbRef;
             mdbRef = FirebaseDatabase.getInstance().getReference();
-            String Name = sp.getString("User_Name", "NoName");
-            String Email = sp.getString("User_Email", "Noemail@gmail.com");
+            String Name = sp.getString("User_Name", "");
+            String Email = sp.getString("User_Email", "");
             String key = sp.getString("User_UID", "no");
             int Level = sp.getInt("CompletedLevels", 0);
             int Hint = sp.getInt("Hint", 0);
             int Solution = sp.getInt("Solution", 0);
             long DT = sp.getLong("DT", System.currentTimeMillis());
+
+            if(Name==null){
+                Toast.makeText(this, "Please Provide Your Name!!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else if(Name.isEmpty()){
+                Toast.makeText(this, "Please Provide Your Name!!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             UserData object = new UserData(Name, Email, Level, Hint, Solution, DT);
 

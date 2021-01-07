@@ -135,9 +135,10 @@
 
                     <ImageButton
                         android:id="@+id/cleardisplay"
-                        android:layout_width="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/close" />
+                        app:srcCompat="@drawable/backspace" />
 
 
                 </LinearLayout>

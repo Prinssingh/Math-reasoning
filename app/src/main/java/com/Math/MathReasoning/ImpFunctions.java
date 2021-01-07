@@ -90,10 +90,12 @@ public class ImpFunctions{
         String Email =sp.getString("User_Email","");
         String key =sp.getString("User_UID","");
 
-        if(Name.isEmpty()){
-            progressDialog.hide();
-            return;
-        }
+        try{
+            if(Name.isEmpty()){
+                progressDialog.hide();
+                return;
+            }
+        }catch(Exception |Error ignored){}
 
         int Level =sp.getInt("CompletedLevels",0);
         int Hint =sp.getInt("Hint",0);
