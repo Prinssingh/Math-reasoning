@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,31 +22,36 @@ import androidx.annotation.Nullable;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class ImpFunctions{
+public class ImpFunctions {
     Context context;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-    final MediaPlayer onclick,right,wrong;
+    MediaPlayer onclick, right, wrong;
 
     @SuppressLint("CommitPrefEdits")
-    public ImpFunctions(Context context){
-        this.context=context;
-        sp=context.getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
-        editor=sp.edit();
-        onclick= MediaPlayer.create(context,R.raw.clicks);
-        right =MediaPlayer.create(context,R.raw.correct);
-        wrong =MediaPlayer.create(context,R.raw.error);
+    public ImpFunctions(Context context) {
+        this.context = context;
+        sp = context.getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
+        editor = sp.edit();
+        try {
+            onclick = MediaPlayer.create(context, R.raw.clicks);
+            right = MediaPlayer.create(context, R.raw.correct);
+            wrong = MediaPlayer.create(context, R.raw.error);
+        } catch (Exception e) {
+            Log.e("TAG", "ImpFunctions: " + e);
+        }
 
     }
 
     public void ShowToast(LayoutInflater layoutInflater, String Title, String Message) {
         @SuppressLint("InflateParams")
-        View ToastView= layoutInflater.inflate(R.layout.toast_view,null);
-        TextView title =ToastView.findViewById(R.id.ToastTitle);
+        View ToastView = layoutInflater.inflate(R.layout.toast_view, null);
+        TextView title = ToastView.findViewById(R.id.ToastTitle);
         TextView message = ToastView.findViewById(R.id.ToastMsg);
         title.setText(Title);
         message.setText(Message);
@@ -59,7 +65,7 @@ public class ImpFunctions{
 
     public Boolean isConnectedToInternet() {
         ConnectivityManager cm =
-                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -71,39 +77,40 @@ public class ImpFunctions{
             } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 status = "Mobile data enabled";
             }
-        }else{
+        } else {
             status = "No internet is available";
         }
 
         return isConnected;
     }
 
-    public void SyncData(){
+    public void SyncData() {
         DatabaseReference mdbRef;
 
-        final ProgressDialog progressDialog =new ProgressDialog(context);
+        final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Saving Your Progress.. !!");
         progressDialog.show();
 
         mdbRef = FirebaseDatabase.getInstance().getReference();
-        String Name=sp.getString("User_Name","");
-        String Email =sp.getString("User_Email","");
-        String key =sp.getString("User_UID","");
+        String Name = sp.getString("User_Name", "");
+        String Email = sp.getString("User_Email", "");
+        String key = sp.getString("User_UID", "");
 
-        try{
-            if(Name.isEmpty()){
+        try {
+            if (Name.isEmpty()) {
                 progressDialog.hide();
                 return;
             }
-        }catch(Exception |Error ignored){}
+        } catch (Exception | Error ignored) {
+        }
 
-        int Level =sp.getInt("CompletedLevels",0);
-        int Hint =sp.getInt("Hint",0);
-        int Solution =sp.getInt("Solution",0);
-        long DT =sp.getLong("DT",System.currentTimeMillis());
+        int Level = sp.getInt("CompletedLevels", 0);
+        int Hint = sp.getInt("Hint", 0);
+        int Solution = sp.getInt("Solution", 0);
+        long DT = sp.getLong("DT", System.currentTimeMillis());
 
-        UserData object =new UserData(Name,Email,Level,Hint,Solution,DT);
-        Map<String,Object> map1 = object.toMap();
+        UserData object = new UserData(Name, Email, Level, Hint, Solution, DT);
+        Map<String, Object> map1 = object.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
 
@@ -121,46 +128,54 @@ public class ImpFunctions{
 
     }
 
-    public String getVersionName(){
+    public String getVersionName() {
         PackageInfo packageInfo = null;
         try {
             packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        if (packageInfo != null){
+        if (packageInfo != null) {
             return String.valueOf(packageInfo.versionName);
-        }else{
-            return "1.0.1";}
+        } else {
+            return "1.0.1";
+        }
 
     }
 
-    public int getTotalLevels(){
+    public int getTotalLevels() {
         return 100;
     }
 
 
-
     public void OnclickSound() {
-
-        if (sp.getBoolean("Sound",true))
-        {
-            onclick.start();
+        try {
+            if (sp.getBoolean("Sound", true)) {
+                onclick.start();
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "OnclickSound: " + e);
         }
     }
 
-    public void correctSound(){
-        if (sp.getBoolean("Sound",true))
-        {
-            right.start();
+    public void correctSound() {
+        try {
+            if (sp.getBoolean("Sound", true)) {
+                right.start();
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "OnclickSound: " + e);
         }
 
     }
 
-    public void wrongSound(){
-        if (sp.getBoolean("Sound",true))
-        {
-            wrong.start();
+    public void wrongSound() {
+        try {
+            if (sp.getBoolean("Sound", true)) {
+                wrong.start();
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "OnclickSound: " + e);
         }
     }
 
