@@ -8,6 +8,10 @@
 
     </style>
 
+    <style name="dialar_box">
+
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
