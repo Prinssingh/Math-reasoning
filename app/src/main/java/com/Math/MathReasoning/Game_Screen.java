@@ -760,6 +760,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             return System.currentTimeMillis() - sp.getLong("LastAdTime", 0) >= 1000 * 60 * 15;
         }
         else return true;
+
     }
 
 
