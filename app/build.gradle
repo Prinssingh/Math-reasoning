@@ -48,9 +48,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'com.google.firebase:firebase-database:19.6.0'
 
-    //FaceBook Ads
-    implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'com.facebook.android:audience-network-sdk:6.0.0'
+
+    //Google Ads
+    implementation 'com.google.android.gms:play-services-ads:19.6.0'
 
     //Animation
     implementation "com.airbnb.android:lottie:3.4.0"

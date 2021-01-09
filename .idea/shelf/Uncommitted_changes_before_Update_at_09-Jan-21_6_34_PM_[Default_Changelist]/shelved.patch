@@ -1,0 +1,48 @@
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Mathematical Reasoning</string>\r\n    <string name=\"version_name\">Version 1.0.0</string>\r\n    <string name=\"title_activity_settings\">Settings</string>\r\n\r\n    <!-- Preference Titles -->\r\n    <string name=\"Personal_header\">Personal</string>\r\n\r\n    <!-- Messages Preferences -->\r\n\r\n    <!-- Sync Preferences -->\r\n\r\n\r\n    <!-- Google Ads Id -->\r\n    <!-- TEST ID ca-app-pub-3940256099942544~3347511713-->\r\n\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 422eb80889917085f25f47c231a1791dae88b267)
++++ app/src/main/res/values/strings.xml	(date 1610197340235)
+@@ -10,7 +10,6 @@
+ 
+     <!-- Sync Preferences -->
+ 
+-
+     <!-- Google Ads Id -->
+     <!-- TEST ID ca-app-pub-3940256099942544~3347511713-->
+ 
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.Math.MathReasoning\">\r\n\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:fullBackupContent=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\">\r\n\r\n        <activity\r\n            android:name=\"com.Math.MathReasoning.SplashScreen\"\r\n            android:screenOrientation=\"portrait\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\"com.Math.MathReasoning.CustomLogin\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:windowSoftInputMode=\"adjustNothing\" />\r\n        <activity\r\n            android:name=\"com.Math.MathReasoning.DashBoard\"\r\n            android:launchMode=\"singleTop\"\r\n            android:screenOrientation=\"portrait\" />\r\n        <activity\r\n            android:name=\"com.Math.MathReasoning.Game_Screen\"\r\n            android:hardwareAccelerated=\"true\"\r\n            android:screenOrientation=\"portrait\" />\r\n        <activity\r\n            android:name=\"com.Math.MathReasoning.Levels_Screen\"\r\n            android:launchMode=\"singleTop\"\r\n            android:screenOrientation=\"portrait\" />\r\n        <activity\r\n            android:name=\"com.Math.MathReasoning.Settings\"\r\n            android:label=\"@string/title_activity_settings\"\r\n            android:screenOrientation=\"portrait\" />\r\n        <activity\r\n            android:name=\"com.Math.MathReasoning.GlobalRanking\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:theme=\"@style/AppTheme\"/>\r\n        <activity\r\n            android:name=\"com.Math.MathReasoning.PrivacyPolicy\"\r\n            android:screenOrientation=\"portrait\" />\r\n\r\n        <meta-data\r\n            android:name=\"preloaded_fonts\"\r\n            android:resource=\"@array/preloaded_fonts\" />\r\n\r\n        <provider\r\n            android:authorities=\"com.Math.MathReasoning\"\r\n            android:name=\"androidx.core.content.FileProvider\"\r\n            android:grantUriPermissions=\"true\" >\r\n            <meta-data\r\n            android:name=\"android.support.FILE_PROVIDER_PATHS\"\r\n            android:resource=\"@xml/filepaths\"/>\r\n\r\n        </provider>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 422eb80889917085f25f47c231a1791dae88b267)
++++ app/src/main/AndroidManifest.xml	(date 1610197442066)
+@@ -57,12 +57,19 @@
+         <provider
+             android:authorities="com.Math.MathReasoning"
+             android:name="androidx.core.content.FileProvider"
+-            android:grantUriPermissions="true" >
++            android:grantUriPermissions="true"
++            android:exported="false">
+             <meta-data
+             android:name="android.support.FILE_PROVIDER_PATHS"
+             android:resource="@xml/filepaths"/>
+ 
+         </provider>
++
++        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
++        <meta-data
++            android:name="com.google.android.gms.ads.APPLICATION_ID"
++            android:value="ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy"/>
++
+     </application>
+ 
+ </manifest>
+\ No newline at end of file

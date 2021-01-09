@@ -1,11 +1,19 @@
 package com.Math.MathReasoning;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.FileProvider;
 
-import com.facebook.ads.*;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdCallback;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +26,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -60,8 +69,11 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     ImpFunctions impFun;
 
     // FaceBook Ads declaration
-    private RewardedVideoAd HintRewardedVideoAd,SolutionRewardedVideoAd;
+    //private RewardedVideoAd HintRewardedVideoAd1, SolutionRewardedVideoAd1;
     int adsCount=0;
+
+    //Google Ads Declaration
+    private RewardedAd HintRewardedVideoAd, SolutionRewardedVideoAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +84,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                AudienceNetworkAds.initialize(Game_Screen.this);
+              //  AudienceNetworkAds.initialize(Game_Screen.this);
                 setup();
             }
         });
@@ -139,8 +151,9 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
         //Getting Initial game
         newGame();
-        loadHindAd();
-        loadSolutionAd();
+        HintRewardedVideoAd = createAndLoadHintRewardedAd();
+        SolutionRewardedVideoAd= createAndLoadSulutionRewardedAd();
+        //loadSolutionAd();
     }
 
     @Override
@@ -152,6 +165,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         super.onBackPressed();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         impFun.OnclickSound();
@@ -234,6 +248,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    @SuppressLint("SetTextI18n")
     public void newGame() {
         if(level >impFun.getTotalLevels())
         {
@@ -330,7 +345,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             public void onClick(View view) {
                 impFun.OnclickSound();
                 // Show A video ad
-                ShowHintAd(); // For Testing  : ShowSolution(HintImg,"Hint");
+                ShowRewardedHintAd(); // For Testing  : ShowSolution(HintImg,"Hint");
 
 
             }
@@ -340,7 +355,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 impFun.OnclickSound();
-                ShowSolutionAd(); // For Testing : ShowSolution(SolutionImg,"Solution");
+                ShowRewardedSulutionAd();
+                //ShowSolutionAd(); // For Testing : ShowSolution(SolutionImg,"Solution");
 
             }
         });
@@ -410,24 +426,185 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void ShowHintAd(){
-        if (HintRewardedVideoAd == null || !HintRewardedVideoAd.isAdLoaded()) {
-            try {
-                adsNotLoaded.setVisibility(View.VISIBLE);
-            }catch (Exception ignored){}
-            return;
-        }
-        // Check if ad is already expired or invalidated, and do not show ad if that is the case. You will not get paid to show an invalidated ad.
-        if (HintRewardedVideoAd.isAdInvalidated()) {
-            try {
-                adsNotLoaded.setVisibility(View.VISIBLE);
-            }catch (Exception ignored){}
-            return;
-        }
+//    public void ShowHintAd(){
+//        if (HintRewardedVideoAd1 == null || !HintRewardedVideoAd1.isAdLoaded()) {
+//            try {
+//                adsNotLoaded.setVisibility(View.VISIBLE);
+//            }catch (Exception ignored){}
+//            return;
+//        }
+//        // Check if ad is already expired or invalidated, and do not show ad if that is the case. You will not get paid to show an invalidated ad.
+//        if (HintRewardedVideoAd1.isAdInvalidated()) {
+//            try {
+//                adsNotLoaded.setVisibility(View.VISIBLE);
+//            }catch (Exception ignored){}
+//            return;
+//        }
+//
+//        if(adAVL()){
+//            try {
+//                HintRewardedVideoAd1.show();
+//                try {
+//                    hint123.dismiss();
+//                }catch(Exception |Error ignored){}
+//                adsCount += 1;
+//                if (adsCount % 2 == 0) {
+//                    editor.putLong("LastAdTime", System.currentTimeMillis()).commit();
+//                }
+//            }catch(Exception | Error ignored){}
+//        }
+//        else{
+//            try {
+//
+//                adsNotLoaded.setVisibility(View.VISIBLE);
+//            }catch (Exception ignored){}
+//        }
+//    }
+//
+//    public void ShowSolutionAd(){
+//        if (SolutionRewardedVideoAd1 == null || !SolutionRewardedVideoAd1.isAdLoaded()) {
+//            try {
+//                adsNotLoaded.setVisibility(View.VISIBLE);
+//            }catch (Exception ignored){}
+//            return;
+//        }
+//        // Check if ad is already expired or invalidated, and do not show ad if that is the case. You will not get paid to show an invalidated ad.
+//        if (SolutionRewardedVideoAd1.isAdInvalidated()) {
+//            try {
+//                adsNotLoaded.setVisibility(View.VISIBLE);
+//            }catch (Exception ignored){}
+//            return;
+//        }
+//        if(adAVL()){
+//            SolutionRewardedVideoAd1.show();
+//            try {
+//                hint123.dismiss();
+//            }catch(Exception |Error ignored){}
+//
+//            adsCount+=1;
+//            if(adsCount%2==0){
+//                editor.putLong("LastAdTime",System.currentTimeMillis()).commit();
+//            }
+//        }
+//        else{
+//            try {
+//                adsNotLoaded.setVisibility(View.VISIBLE);
+//            }catch (Exception ignored){}
+//        }
+//
+//
+//    }
+//
+//    public void loadHindAdFAN(){
+//        HintRewardedVideoAd1 = new RewardedVideoAd(this, "823602718393633_827604441326794");
+//        RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
+//            @Override
+//            public void onError(Ad ad, AdError error) {
+//            }
+//
+//            @Override
+//            public void onAdLoaded(Ad ad) {
+//                // Rewarded video ad is loaded and ready to be displayed
+//                try {
+//                    adsNotLoaded.setVisibility(View.INVISIBLE);
+//                }catch (Exception ignored){}
+//            }
+//
+//            @Override
+//            public void onAdClicked(Ad ad) {
+//
+//            }
+//
+//            @Override
+//            public void onLoggingImpression(Ad ad) {
+//            }
+//
+//            @Override
+//            public void onRewardedVideoCompleted() {
+//                ShowSolution(HintImg,"Hint");
+//            }
+//
+//            @Override
+//            public void onRewardedVideoClosed() {
+//                try{
+//                    hint123.dismiss();
+//                }catch(Exception ignored){}
+//                loadHindAdFAN();
+//            }
+//        };
+//        if(!HintRewardedVideoAd1.isAdLoaded())
+//        HintRewardedVideoAd1.loadAd(
+//                HintRewardedVideoAd1.buildLoadAdConfig()
+//                        .withAdListener(rewardedVideoAdListener)
+//                        .build());
+//
+//    }
 
-        if(adAVL()){
+    public RewardedAd createAndLoadHintRewardedAd() {
+        Log.d("TAG", "createAndLoadHintRewardedAd: FunctionCalled!!");
+        RewardedAd rewardedAd = new RewardedAd(this,
+                "ca-app-pub-3940256099942544/5224354917");// TODO Add HINT ADD ID : ca-app-pub-9095339188186410/5824836857
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
+            @Override
+            public void onRewardedAdLoaded() {
+                // Ad successfully loaded.
+                try {
+                    adsNotLoaded.setVisibility(View.INVISIBLE);
+                }catch (Exception ignored){}
+                Log.d("TAG", "createAndLoadHintRewardedAd: Hint Loaded!!");
+            }
+
+            @Override
+            public void onRewardedAdFailedToLoad(LoadAdError adError) {
+                // Ad failed to load.
+                Log.d("TAG", "createAndLoadHintRewardedAd: Hint Loading Failed!!"+adError);
+
+                try {
+                    adsNotLoaded.setVisibility(View.VISIBLE);
+                }catch (Exception ignored){}
+            }
+        };
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        return rewardedAd;
+    }
+
+    public void ShowRewardedHintAd(){
+
+        if(adAVL() && HintRewardedVideoAd.isLoaded()){
+            Log.d("TAG", "ShowRewardedHintAd: Loaded "+HintRewardedVideoAd.isLoaded());
             try {
-                HintRewardedVideoAd.show();
+                //HintRewardedVideoAd1.show();
+                RewardedAdCallback adCallback = new RewardedAdCallback() {
+
+                    @Override
+                    public void onRewardedAdOpened() {
+                        // Ad opened.
+                    }
+
+                    @Override
+                    public void onRewardedAdClosed() {
+                        // Ad closed.
+                        try{
+                            hint123.dismiss();
+                        }catch(Exception ignored){}
+                        HintRewardedVideoAd = createAndLoadHintRewardedAd();
+                    }
+
+                    @Override
+                    public void onUserEarnedReward(@NonNull RewardItem reward) {
+                        // User earned reward.
+                        ShowSolution(HintImg,"Hint");
+                    }
+
+                    @Override
+                    public void onRewardedAdFailedToShow(AdError adError) {
+                        // Ad failed to display.
+                        try {
+                            adsNotLoaded.setVisibility(View.VISIBLE);
+                        }catch (Exception ignored){}
+                    }
+                };
+                HintRewardedVideoAd.show(this, adCallback);
                 try {
                     hint123.dismiss();
                 }catch(Exception |Error ignored){}
@@ -443,134 +620,140 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                 adsNotLoaded.setVisibility(View.VISIBLE);
             }catch (Exception ignored){}
         }
+
     }
 
-    public void ShowSolutionAd(){
-        if (SolutionRewardedVideoAd == null || !SolutionRewardedVideoAd.isAdLoaded()) {
-            try {
-                adsNotLoaded.setVisibility(View.VISIBLE);
-            }catch (Exception ignored){}
-            return;
-        }
-        // Check if ad is already expired or invalidated, and do not show ad if that is the case. You will not get paid to show an invalidated ad.
-        if (SolutionRewardedVideoAd.isAdInvalidated()) {
-            try {
-                adsNotLoaded.setVisibility(View.VISIBLE);
-            }catch (Exception ignored){}
-            return;
-        }
-        if(adAVL()){
-            SolutionRewardedVideoAd.show();
-            try {
-                hint123.dismiss();
-            }catch(Exception |Error ignored){}
-
-            adsCount+=1;
-            if(adsCount%2==0){
-                editor.putLong("LastAdTime",System.currentTimeMillis()).commit();
+    public RewardedAd createAndLoadSulutionRewardedAd() {
+        Log.d("TAG", "createAndLoadHintRewardedAd: FunctionCalled!!");
+        RewardedAd rewardedAd = new RewardedAd(this,
+                "ca-app-pub-3940256099942544/5224354917");// TODO Add HINT ADD ID : ca-app-pub-9095339188186410/5824836857
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
+            @Override
+            public void onRewardedAdLoaded() {
+                // Ad successfully loaded.
+                try {
+                    adsNotLoaded.setVisibility(View.INVISIBLE);
+                }catch (Exception ignored){}
+                Log.d("TAG", "createAndLoadHintRewardedAd: Hint Loaded!!");
             }
+
+            @Override
+            public void onRewardedAdFailedToLoad(LoadAdError adError) {
+                // Ad failed to load.
+                Log.d("TAG", "createAndLoadHintRewardedAd: Hint Loading Failed!!"+adError);
+
+                try {
+                    adsNotLoaded.setVisibility(View.VISIBLE);
+                }catch (Exception ignored){}
+            }
+        };
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        return rewardedAd;
+    }
+
+    public void ShowRewardedSulutionAd(){
+
+        if(adAVL() && HintRewardedVideoAd.isLoaded()){
+            Log.d("TAG", "ShowRewardedHintAd: Loaded "+HintRewardedVideoAd.isLoaded());
+            try {
+                //HintRewardedVideoAd1.show();
+                RewardedAdCallback adCallback = new RewardedAdCallback() {
+
+                    @Override
+                    public void onRewardedAdOpened() {
+                        // Ad opened.
+                    }
+
+                    @Override
+                    public void onRewardedAdClosed() {
+                        // Ad closed.
+                        try{
+                            hint123.dismiss();
+                        }catch(Exception ignored){}
+                        HintRewardedVideoAd = createAndLoadHintRewardedAd();
+                    }
+
+                    @Override
+                    public void onUserEarnedReward(@NonNull RewardItem reward) {
+                        // User earned reward.
+                        ShowSolution(SolutionImg,"Solution");
+                    }
+
+                    @Override
+                    public void onRewardedAdFailedToShow(AdError adError) {
+                        // Ad failed to display.
+                        try {
+                            adsNotLoaded.setVisibility(View.VISIBLE);
+                        }catch (Exception ignored){}
+                    }
+                };
+                HintRewardedVideoAd.show(this, adCallback);
+                try {
+                    hint123.dismiss();
+                }catch(Exception |Error ignored){}
+                adsCount += 1;
+                if (adsCount % 2 == 0) {
+                    editor.putLong("LastAdTime", System.currentTimeMillis()).commit();
+                }
+            }catch(Exception | Error ignored){}
         }
         else{
             try {
+
                 adsNotLoaded.setVisibility(View.VISIBLE);
             }catch (Exception ignored){}
         }
 
-
     }
 
-    public void loadHindAd(){
-        HintRewardedVideoAd = new RewardedVideoAd(this, "823602718393633_827604441326794");
-        RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
-            @Override
-            public void onError(Ad ad, AdError error) {
-            }
 
-            @Override
-            public void onAdLoaded(Ad ad) {
-                // Rewarded video ad is loaded and ready to be displayed
-                try {
-                    adsNotLoaded.setVisibility(View.INVISIBLE);
-                }catch (Exception ignored){}
-            }
-
-            @Override
-            public void onAdClicked(Ad ad) {
-
-            }
-
-            @Override
-            public void onLoggingImpression(Ad ad) {
-            }
-
-            @Override
-            public void onRewardedVideoCompleted() {
-                ShowSolution(HintImg,"Hint");
-            }
-
-            @Override
-            public void onRewardedVideoClosed() {
-                try{
-                    hint123.dismiss();
-                }catch(Exception ignored){}
-                loadHindAd();
-            }
-        };
-        if(!HintRewardedVideoAd.isAdLoaded())
-        HintRewardedVideoAd.loadAd(
-                HintRewardedVideoAd.buildLoadAdConfig()
-                        .withAdListener(rewardedVideoAdListener)
-                        .build());
-
-    }
-
-    public void loadSolutionAd(){
-
-        SolutionRewardedVideoAd = new RewardedVideoAd(this, "823602718393633_826571811430057");
-        RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
-            @Override
-            public void onError(Ad ad, AdError error) {
-                // Rewarded video ad failed to load
-
-            }
-
-            @Override
-            public void onAdLoaded(Ad ad) {
-                try {
-                    adsNotLoaded.setVisibility(View.INVISIBLE);
-                }catch (Exception ignored){}
-            }
-
-            @Override
-            public void onAdClicked(Ad ad) {
-            }
-
-            @Override
-            public void onLoggingImpression(Ad ad) {
-
-            }
-
-            @Override
-            public void onRewardedVideoCompleted() {
-                ShowSolution(SolutionImg,"Solution");
-            }
-
-            @Override
-            public void onRewardedVideoClosed() {
-                try{
-                    hint123.dismiss();
-                }catch(Exception ignored){}
-                loadSolutionAd();
-            }
-        };
-        if(!SolutionRewardedVideoAd.isAdLoaded())
-        SolutionRewardedVideoAd.loadAd(
-                SolutionRewardedVideoAd.buildLoadAdConfig()
-                        .withAdListener(rewardedVideoAdListener)
-                        .build());
-
-
-    }
+//    public void loadSolutionAd(){
+//
+//        SolutionRewardedVideoAd1 = new RewardedVideoAd(this, "823602718393633_826571811430057");
+//        RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
+//            @Override
+//            public void onError(Ad ad, AdError error) {
+//                // Rewarded video ad failed to load
+//
+//            }
+//
+//            @Override
+//            public void onAdLoaded(Ad ad) {
+//                try {
+//                    adsNotLoaded.setVisibility(View.INVISIBLE);
+//                }catch (Exception ignored){}
+//            }
+//
+//            @Override
+//            public void onAdClicked(Ad ad) {
+//            }
+//
+//            @Override
+//            public void onLoggingImpression(Ad ad) {
+//
+//            }
+//
+//            @Override
+//            public void onRewardedVideoCompleted() {
+//                ShowSolution(SolutionImg,"Solution");
+//            }
+//
+//            @Override
+//            public void onRewardedVideoClosed() {
+//                try{
+//                    hint123.dismiss();
+//                }catch(Exception ignored){}
+//                loadSolutionAd();
+//            }
+//        };
+//        if(!SolutionRewardedVideoAd1.isAdLoaded())
+//        SolutionRewardedVideoAd1.loadAd(
+//                SolutionRewardedVideoAd1.buildLoadAdConfig()
+//                        .withAdListener(rewardedVideoAdListener)
+//                        .build());
+//
+//
+//    }
 
     public boolean adAVL(){
         if(adsCount%2==0){
