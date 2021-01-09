@@ -61,7 +61,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     private AlertDialog.Builder rightDialog,hintDialog,solutionDialog;
 
     CardView button0,button1,button2,button3,button4,button5,button6,button7,button8,button9;
-    Button enter;
+    CardView enter;
     ImageButton  cleardisplay,GoBack,sharequestion;
 
     String UD="";
