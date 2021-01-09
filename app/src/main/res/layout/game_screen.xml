@@ -7,15 +7,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/allbg1"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="44dp"
             android:orientation="horizontal"
-
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <ImageButton
@@ -96,7 +95,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="180dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -116,7 +115,8 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/imgshape"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="NestedWeights">
 
 
                     <TextView
@@ -131,7 +131,8 @@
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/nextbgcolor" />
+                        android:textColor="@color/nextbgcolor"
+                        tools:targetApi="o" />
 
                     <ImageButton
                         android:id="@+id/cleardisplay"
@@ -161,20 +162,19 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    >
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
 
                     <Button
                         android:id="@+id/enter"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:autoSizeTextType="uniform"
                         android:text="Enter"
-
-                        android:textColor="@color/nextbgcolor" />
+                        android:textColor="@color/nextbgcolor"
+                        tools:targetApi="o" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -187,13 +187,14 @@
                 android:gravity="center">
 
                 <GridLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:alignmentMode="alignMargins"
                     android:columnCount="5"
                     android:columnOrderPreserved="false"
-                    android:rowCount="1">
+                    android:rowCount="1"
+                    tools:ignore="NestedWeights">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/number1"
@@ -220,7 +221,7 @@
                                 android:text="1"
                                 android:textAlignment="center"
                                 android:textColor="@color/nextbgcolor"
-                                android:textSize="30dp" />
+                                android:textSize="30sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -248,7 +249,7 @@
                                 android:fontFamily="@font/cantora_one"
                                 android:text="2"
                                 android:textColor="@color/nextbgcolor"
-                                android:textSize="30dp" />
+                                android:textSize="30sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -278,7 +279,7 @@
                                 android:fontFamily="@font/cantora_one"
                                 android:text="3"
                                 android:textColor="@color/nextbgcolor"
-                                android:textSize="30dp" />
+                                android:textSize="30sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -308,7 +309,7 @@
                                 android:fontFamily="@font/cantora_one"
                                 android:text="4"
                                 android:textColor="@color/nextbgcolor"
-                                android:textSize="30dp" />
+                                android:textSize="30sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -338,7 +339,7 @@
                                 android:fontFamily="@font/cantora_one"
                                 android:text="5"
                                 android:textColor="@color/nextbgcolor"
-                                android:textSize="30dp" />
+                                android:textSize="30sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -356,13 +357,14 @@
                 android:gravity="center">
 
                 <GridLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:alignmentMode="alignMargins"
                     android:columnCount="5"
                     android:columnOrderPreserved="false"
-                    android:rowCount="1">
+                    android:rowCount="1"
+                    tools:ignore="NestedWeights">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/number6"
@@ -388,7 +390,7 @@
                                 android:fontFamily="@font/cantora_one"
                                 android:text="6"
                                 android:textColor="@color/nextbgcolor"
-                                android:textSize="30dp" />
+                                android:textSize="30sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -418,7 +420,7 @@
                                 android:fontFamily="@font/cantora_one"
                                 android:text="7"
                                 android:textColor="@color/nextbgcolor"
-                                android:textSize="30dp" />
+                                android:textSize="30sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -448,7 +450,7 @@
                                 android:fontFamily="@font/cantora_one"
                                 android:text="8"
                                 android:textColor="@color/nextbgcolor"
-                                android:textSize="30dp" />
+                                android:textSize="30sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
