@@ -32,48 +32,61 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.splash_screen);
-        //Shared Data /GameData
-        sp=getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
-        editor=sp.edit();
+        try {
+            setContentView(R.layout.splash_screen);
+            //Shared Data /GameData
+            sp = getSharedPreferences("MathsResoninngData", Context.MODE_PRIVATE);
+            editor = sp.edit();
 
-        //editor.clear().commit();
+            //editor.clear().commit();
 
-        //Set Version name
-        impFun = new ImpFunctions(getApplicationContext());
-        TextView versionName =findViewById(R.id.versionname);
+            //Set Version name
+            impFun = new ImpFunctions(getApplicationContext());
+            TextView versionName = findViewById(R.id.versionname);
 
-        String vers="Version " + impFun.getVersionName();
-        versionName.setText(vers);
+            String vers = "Version " + impFun.getVersionName();
+            versionName.setText(vers);
 
-        //Splash Screen timer
+            //Splash Screen timer
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-               if(!sp.getBoolean("Login",false)){
-                   Intent LoginIntent = new Intent(SplashScreen.this, CustomLogin.class);
-                   startActivity(LoginIntent);
-                   finish();
-               }
-               else{
-                   Intent homeintent = new Intent(SplashScreen.this, DashBoard.class);
-                   startActivity(homeintent);
-                   finish();
-               }
-
-            }
-        }, 4000);
-
-
-             //Save Progress if 7 days Complete!!
-        if (isAutoSyncAVL() && sp.getString("User_Name","NoName")!= "NoName" && sp.getBoolean("Login",false)) {
-            new Handler().post(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    autoSaveProgress();
+                    if (!sp.getBoolean("Login", false)) {
+                        Intent LoginIntent = new Intent(SplashScreen.this, CustomLogin.class);
+                        startActivity(LoginIntent);
+                        finish();
+                    } else {
+                        Intent homeintent = new Intent(SplashScreen.this, DashBoard.class);
+                        startActivity(homeintent);
+                        finish();
+                    }
+
                 }
-            });
+            }, 4000);
+
+
+            //Save Progress if 7 days Complete!!
+            if (isAutoSyncAVL() && sp.getString("User_Name", "NoName") != "NoName" && sp.getBoolean("Login", false)) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        autoSaveProgress();
+                    }
+                });
+            }
+        }catch (Exception e){
+
+            if (!sp.getBoolean("Login", false)) {
+                Intent LoginIntent = new Intent(SplashScreen.this, CustomLogin.class);
+                startActivity(LoginIntent);
+                finish();
+            } else {
+                Intent homeintent = new Intent(SplashScreen.this, DashBoard.class);
+                startActivity(homeintent);
+                finish();
+            }
+
         }
 
     }
