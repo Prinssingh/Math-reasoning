@@ -3,7 +3,6 @@
     android:color="#D99A9797">
     <item
         android:drawable="@drawable/screen_lock"
-        android:gravity="center"
-        />
+        android:gravity="center"/>
 </ripple>
 

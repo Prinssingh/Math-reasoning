@@ -52,6 +52,7 @@ dependencies {
     //Google Ads
     implementation 'com.google.android.gms:play-services-ads:19.6.0'
 
+
     //Animation
     implementation "com.airbnb.android:lottie:3.4.0"
 

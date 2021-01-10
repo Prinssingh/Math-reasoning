@@ -60,6 +60,7 @@ public class Levels_Screen extends AppCompatActivity {
 
         for(int i = 0; i < dotscount; i++){
 
+
             dots[i] = new ImageView(this);
             dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,21 +7,269 @@
     android:layout_height="match_parent"
     tools:context=".PrivacyPolicy"
     android:background="@drawable/allbg">
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:indeterminate="true"
-        android:indeterminateDrawable="@drawable/progress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <WebView
-        android:id="@+id/privacyPolicy"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_margin="10dp"
+           android:layout_marginBottom="20dp"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:id="@+id/privacy_policy"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="PRIVACY POLICY"
+               android:textSize="22sp"
+               android:textAlignment="center"
+               android:textStyle="bold"
+               android:layout_marginTop="20dp"/>
+
+           <TextView
+               android:id="@+id/policy"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/string1"
+               android:textSize="10sp"
+               android:layout_below="@+id/privacy_policy"
+               android:textAlignment="center"
+               android:layout_marginTop="10dp"
+               tools:ignore="SmallSp" />
+
+           <TextView
+               android:id="@+id/information"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Information Collection and Use:"
+               android:textSize="15sp"
+               android:layout_below="@+id/policy"
+               android:textStyle="bold"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/information_collection"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/string2"
+               android:textSize="10sp"
+               android:layout_below="@+id/information"
+               android:textAlignment="center"
+               android:layout_marginTop="3dp"/>
+
+           <LinearLayout
+               android:id="@+id/service_provider_app"
+               android:layout_width="wrap_content"
+               android:orientation="vertical"
+               android:layout_marginTop="10dp"
+               android:layout_marginLeft="20dp"
+               android:layout_below="@+id/information_collection"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="* Google play service "/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="* Google Analytics for Firebase"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="* Firebase Crashlytics"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="* Facebook"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="* Zapsplate.com(Sound)"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="* Lottiefiles (Airbnb) animation"/>
+
+           </LinearLayout>
+
+           <TextView
+               android:id="@+id/logData"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Log Data"
+               android:textSize="15sp"
+               android:layout_below="@+id/service_provider_app"
+               android:textStyle="bold"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/logDataPara"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/log_data"
+               android:textSize="10sp"
+               android:layout_below="@+id/logData"
+               android:textAlignment="center"
+               android:layout_marginTop="3dp"/>
+
+           <TextView
+               android:id="@+id/cookies"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Cookies"
+               android:textSize="15sp"
+               android:layout_below="@+id/logDataPara"
+               android:textStyle="bold"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/cookiesPara"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/cookies"
+               android:textSize="10sp"
+               android:layout_below="@+id/cookies"
+               android:textAlignment="center"
+               android:layout_marginTop="3dp"/>
+
+           <TextView
+               android:id="@+id/service_providers"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Service Providers"
+               android:textSize="15sp"
+               android:layout_below="@+id/cookiesPara"
+               android:textStyle="bold"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/service_providers_data"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/log_data"
+               android:textSize="10sp"
+               android:layout_below="@+id/service_providers"
+               android:textAlignment="center"
+               android:layout_marginTop="3dp"/>
+
+           <TextView
+               android:id="@+id/security"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Security"
+               android:textSize="15sp"
+               android:layout_below="@+id/service_providers_data"
+               android:textStyle="bold"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/security_data"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/security"
+               android:textSize="10sp"
+               android:layout_below="@+id/security"
+               android:textAlignment="center"
+               android:layout_marginTop="3dp"/>
+
+           <TextView
+               android:id="@+id/link_to_other_site"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="link to other site"
+               android:textSize="15sp"
+               android:layout_below="@+id/security_data"
+               android:textStyle="bold"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/link_to_other_site_data"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/links_to_other_sites"
+               android:textSize="10sp"
+               android:layout_below="@+id/link_to_other_site"
+               android:textAlignment="center"
+               android:layout_marginTop="3dp"/>
+
+           <TextView
+               android:id="@+id/children_privacy"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Children’s Privacy"
+               android:textSize="15sp"
+               android:layout_below="@+id/link_to_other_site_data"
+               android:textStyle="bold"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/children_privacy_data"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/children_privacy"
+               android:textSize="10sp"
+               android:layout_below="@+id/children_privacy"
+               android:textAlignment="center"
+               android:layout_marginTop="3dp"/>
+
+           <TextView
+               android:id="@+id/change_to_the_policy"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Changes to This Privacy Policy"
+               android:textSize="15sp"
+               android:layout_below="@+id/children_privacy_data"
+               android:textStyle="bold"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/change_to_policy_data"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/change_to_this_privacy_policy"
+               android:textSize="10sp"
+               android:layout_below="@+id/change_to_the_policy"
+               android:textAlignment="center"
+               android:layout_marginTop="3dp"/>
+
+           <TextView
+               android:id="@+id/contact_us"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Contact Us"
+               android:textSize="15sp"
+               android:layout_below="@+id/change_to_policy_data"
+               android:textStyle="bold"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/contact_us_data"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/contact_us"
+               android:textSize="10sp"
+               android:layout_marginBottom="30dp"
+               android:layout_below="@+id/contact_us"
+               android:textAlignment="center"
+               android:layout_marginTop="3dp"/>
+           
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+       </RelativeLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>
