@@ -66,10 +66,10 @@
         </provider>
 
         <!-- Test app ID: ca-app-pub-3940256099942544~3347511713 -->
-        <!--  TODO Actual App ID: ca-app-pub-9095339188186410~6016408545      -->
+        <!--  TODO Actual App ID:       -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-9095339188186410~6016408545"/>
 
     </application>
 

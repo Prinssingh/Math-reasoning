@@ -68,6 +68,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     Boolean levelScreen;
     ImpFunctions impFun;
 
+    final int adsCountPerDay =6;
+
 
     //Google Ads Declaration
     private RewardedAd HintRewardedVideoAd, SolutionRewardedVideoAd;
@@ -435,9 +437,9 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     }
 
     public RewardedAd createAndLoadHintRewardedAd() {
-        Log.d("TAG", "createAndLoadHintRewardedAd: FunctionCalled!!");
+
         RewardedAd rewardedAd = new RewardedAd(this,
-                "ca-app-pub-3940256099942544/5224354917");// TODO Add HINT ADD ID : ca-app-pub-9095339188186410/5824836857
+                "ca-app-pub-9095339188186410/5824836857");  // Add HINT TEST ID : ca-app-pub-3940256099942544/5224354917  |
         RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
             @Override
             public void onRewardedAdLoaded() {
@@ -465,9 +467,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     }
 
     public void ShowRewardedHintAd() {
-
         if (adAVL() && HintRewardedVideoAd.isLoaded()) {
-            Log.d("TAG", "ShowRewardedHintAd: Loaded " + HintRewardedVideoAd.isLoaded());
             try {
                 //HintRewardedVideoAd1.show();
                 RewardedAdCallback adCallback = new RewardedAdCallback() {
@@ -518,7 +518,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
     public RewardedAd createAndLoadSolutionRewardedAd() {
         RewardedAd rewardedAd = new RewardedAd(this,
-                "ca-app-pub-3940256099942544/5224354917");// TODO Add SOLUTION ADD ID : ca-app-pub-9095339188186410/5441693477
+                "ca-app-pub-9095339188186410/5441693477");//  Add SOLUTION ADD ID : ca-app-pub-3940256099942544/5224354917 | Anjana -> ca-app-pub-2623546584356911/5765729743
         RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
             @Override
             public void onRewardedAdLoaded() {
@@ -527,13 +527,13 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                     adsNotLoaded.setVisibility(View.INVISIBLE);
                 } catch (Exception ignored) {
                 }
-                Log.d("TAG", "createAndLoadHintRewardedAd: Hint Loaded!!");
+
             }
 
             @Override
             public void onRewardedAdFailedToLoad(LoadAdError adError) {
                 // Ad failed to load.
-                Log.d("TAG", "createAndLoadHintRewardedAd: Hint Loading Failed!!" + adError);
+               // Log.d("TAG", "createAndLoadHintRewardedAd: Hint Loading Failed!!" + adError);
 
                 try {
                     adsNotLoaded.setVisibility(View.VISIBLE);
@@ -596,14 +596,13 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     }
 
     public boolean adAVL() {
-
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String currentcDate = sdf.format(new Date());
 
         String lastDate = sp.getString("LastAdsDate", "NoDate");
         if (lastDate.equals(currentcDate))
-              return sp.getInt("LastDateAdsCount", 1) < 10;
+              return sp.getInt("LastDateAdsCount", 1) < adsCountPerDay;
         else return true;
     }
 
@@ -639,7 +638,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String currentDate= sdf.format(new Date());
-        Log.d("TAG", "LimitAdsPerDay: " + currentDate);
+//        Log.d("TAG", "LimitAdsPerDay: " + currentDate);
         if (sp.contains("LastAdsDate")) {
             String lastDate = sp.getString("LastAdsDate", "NoDate");
             assert lastDate != null;
@@ -658,7 +657,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
     public void ShowPolicyChangedDialog() {
         if (!sp.getBoolean("PolicyChangedDialog", false)) {
-                View SolutionView = getLayoutInflater().inflate(R.layout.policy_changed_dialog_iew, null);
+                View SolutionView = getLayoutInflater().inflate(R.layout.policy_changed_dialog_view, null);
                 PolicyDialog.setView(SolutionView);
                 PolicyDialog.setCancelable(true);
 

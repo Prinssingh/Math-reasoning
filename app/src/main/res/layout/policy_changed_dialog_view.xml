@@ -34,7 +34,7 @@
                 android:fontFamily="@font/cantora_one"
                 android:gravity="center"
                 android:text="Limited Hints/Solutions"
-                android:textSize="30sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
@@ -47,7 +47,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_margin="16dp"
                 android:fontFamily="@font/cantora_one"
-                android:text="Now you can use Only 10 hints/solutions in a day."
+                android:text="Now you can use Only 6 hints/solutions in a day."
                 tools:ignore="HardcodedText"
                 android:gravity="center"
                 android:textSize="22sp"
@@ -79,14 +79,14 @@
                         android:fontFamily="@font/cantora_one"
                         android:text="got it"
                         android:textColor="@color/colorWhite"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         tools:ignore="HardcodedText" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="36dp"
+                    android:layout_marginStart="24dp"
                     app:cardCornerRadius="6dp">
 
                     <Button
@@ -95,9 +95,9 @@
                         android:layout_height="match_parent"
                         android:background="@color/colorWhite"
                         android:fontFamily="@font/cantora_one"
-                        android:text="cancle"
+                        android:text="cancel"
                         android:textColor="@color/nextbgcolor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         tools:ignore="HardcodedText" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
