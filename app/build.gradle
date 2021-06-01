@@ -41,6 +41,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    //Custom Dialog Box
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
 
     //Fire Base
     implementation 'com.google.firebase:firebase-analytics:18.0.0'

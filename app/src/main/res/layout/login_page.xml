@@ -13,7 +13,6 @@
         android:text="Welcome to "
         android:textSize="12dp"
         android:textStyle="bold"
-
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.0"

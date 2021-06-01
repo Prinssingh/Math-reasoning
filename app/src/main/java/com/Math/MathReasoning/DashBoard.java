@@ -55,7 +55,6 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
-
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -90,8 +89,6 @@ public class DashBoard extends AppCompatActivity {
 
         exitIcon.setAnimation(ZoomIn);
         exitIcon.setAnimation(ZoomOut);
-
-
 
         // No Internet connection alert
         if (! impFun.isConnectedToInternet()) {

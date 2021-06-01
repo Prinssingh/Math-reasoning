@@ -70,8 +70,6 @@ public class Level4 extends Fragment {
 
         }
 
-
-
         return root;
 
     }

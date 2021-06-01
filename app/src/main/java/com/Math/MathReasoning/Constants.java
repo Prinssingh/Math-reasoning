@@ -1,6 +1,7 @@
 package com.Math.MathReasoning;
 
 public class Constants {
+
     public static int[] Answers =  {0,24,30,32,29,27,81,12,25,9,8,
                                     6,19,30,14,81191,1,30,3,41,70,
                                     8,54,16,2,91,13,24,436,17,11,

@@ -265,8 +265,6 @@ public class Login extends Fragment implements View.OnClickListener {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     progressDialog1.setMessage("No Progress Found");
                     progressDialog1.hide();
-
-
                 }
             };
             mdbRef.addValueEventListener(postListener);

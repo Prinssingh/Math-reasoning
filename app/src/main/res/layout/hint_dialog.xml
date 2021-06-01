@@ -122,7 +122,7 @@
                 android:textSize="18sp"
                 android:visibility="invisible"
                 android:textAlignment="center"
-                android:text="Ads are not available yet."/>
+                android:text="Only 2 Hint/Solution see in 1 day"/>
 
 
 

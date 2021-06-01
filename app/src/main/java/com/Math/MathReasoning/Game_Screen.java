@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -31,13 +32,19 @@ import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdCallback;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class Game_Screen extends AppCompatActivity implements View.OnClickListener {
@@ -63,6 +70,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     CardView button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
     CardView enter;
     ImageButton cleardisplay, GoBack, sharequestion;
+
+    public static int CountNoOfAds=0;
 
     String UD = "";
     Boolean levelScreen;
@@ -346,7 +355,13 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             public void onClick(View view) {
                 impFun.OnclickSound();
                 // Show A video ad
-                ShowRewardedHintAd(); // For Testing  : ShowSolution(HintImg,"Hint");
+                DailyChecks();
+
+                if(CountNoOfAds>1){
+                    adsNotLoaded.setVisibility(View.VISIBLE);
+                }else {
+                    ShowRewardedHintAd(); // For Testing  : ShowSolution(HintImg,"Hint");
+                }
 
             }
         });
@@ -355,8 +370,14 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 impFun.OnclickSound();
-                ShowRewardedSolutionAd();
-                //ShowSolutionAd(); // For Testing : ShowSolution(SolutionImg,"Solution");
+                DailyChecks();
+
+                if(CountNoOfAds>1){
+                    adsNotLoaded.setVisibility(View.VISIBLE);
+                }else {
+                    ShowRewardedSolutionAd();
+                    //ShowSolutionAd(); // For Testing : ShowSolution(SolutionImg,"Solution");
+                }
 
             }
         });
@@ -491,13 +512,16 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                     public void onUserEarnedReward(@NonNull RewardItem reward) {
                         // User earned reward.
                         ShowSolution(HintImg, "Hint");
+                        CountNoOfAds++;
                     }
 
                     @Override
                     public void onRewardedAdFailedToShow(AdError adError) {
                         // Ad failed to display.
                         try {
-                            adsNotLoaded.setVisibility(View.VISIBLE);
+                            ShowSolution(HintImg, "Hint");
+                            CountNoOfAds++;
+                            //adsNotLoaded.setVisibility(View.VISIBLE);
                         } catch (Exception ignored) {
                         }
                     }
@@ -508,8 +532,9 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             }
         } else {
             try {
-
-                adsNotLoaded.setVisibility(View.VISIBLE);
+                ShowSolution(HintImg, "Hint");
+                CountNoOfAds++;
+                //adsNotLoaded.setVisibility(View.VISIBLE);
             } catch (Exception ignored) {
             }
         }
@@ -570,13 +595,16 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                     public void onUserEarnedReward(@NonNull RewardItem reward) {
                         // User earned reward.
                         ShowSolution(SolutionImg, "Solution");
+                        CountNoOfAds++;
                     }
 
                     @Override
                     public void onRewardedAdFailedToShow(AdError adError) {
                         // Ad failed to display.
                         try {
-                            adsNotLoaded.setVisibility(View.VISIBLE);
+                            ShowSolution(SolutionImg, "Solution");
+                            CountNoOfAds++;
+                            //adsNotLoaded.setVisibility(View.VISIBLE);
                         } catch (Exception ignored) {
                         }
                     }
@@ -588,7 +616,9 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             }
         } else {
             try {
-                adsNotLoaded.setVisibility(View.VISIBLE);
+                ShowSolution(SolutionImg, "Solution");
+                CountNoOfAds++;
+                //adsNotLoaded.setVisibility(View.VISIBLE);
             } catch (Exception ignored) {
             }
         }
@@ -683,6 +713,35 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
             }
 
+
+
+    }
+
+    private void DailyChecks(){
+//        final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+//        sweetAlertDialog.setTitle("Please wait");
+//        sweetAlertDialog.setCancelable(false);
+//        sweetAlertDialog.show();
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        String todayString = year + "" + month + "" + day;
+
+        SharedPreferences preferences1 = getSharedPreferences("PRESS",0);
+        boolean currentDay = preferences1.getBoolean(todayString,false);
+
+        if(!currentDay){
+            Toast.makeText(this,"You have only 1 chance to see Hint/Solution",Toast.LENGTH_LONG).show();
+            CountNoOfAds=0;
+            SharedPreferences.Editor editor1 = preferences1.edit();
+            editor1.putBoolean(todayString,true);
+            editor1.apply();
+        }else{
+            Toast.makeText(this, "You have seen today's Hint/Solution", Toast.LENGTH_SHORT).show();
+        }
 
 
     }
