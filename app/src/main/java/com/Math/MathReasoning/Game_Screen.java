@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.FileProvider;
 
+
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
@@ -53,7 +54,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
-
     //Game Level Handling
     private int level, Answer;
     private Bitmap HintImg;
@@ -71,7 +71,8 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
     CardView enter;
     ImageButton cleardisplay, GoBack, sharequestion;
 
-    public static int CountNoOfAds=0;
+    public static int CountNoOfAdsHint=0;
+    public static int CountNoOfAdsSolution=0;
 
     String UD = "";
     Boolean levelScreen;
@@ -346,6 +347,7 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 impFun.OnclickSound();
+                adsNotLoaded.setVisibility(View.INVISIBLE);
                 hint123.dismiss();
             }
         });
@@ -355,12 +357,12 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             public void onClick(View view) {
                 impFun.OnclickSound();
                 // Show A video ad
-                DailyChecks();
+                DailyChecksHint();
 
-                if(CountNoOfAds>1){
-                    adsNotLoaded.setVisibility(View.VISIBLE);
-                }else {
+                if(CountNoOfAdsHint==1){
                     ShowRewardedHintAd(); // For Testing  : ShowSolution(HintImg,"Hint");
+                }else {
+                    adsNotLoaded.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -370,13 +372,13 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 impFun.OnclickSound();
-                DailyChecks();
+                DailyChecksSolution();
 
-                if(CountNoOfAds>1){
-                    adsNotLoaded.setVisibility(View.VISIBLE);
-                }else {
+                if(CountNoOfAdsSolution==1){
                     ShowRewardedSolutionAd();
                     //ShowSolutionAd(); // For Testing : ShowSolution(SolutionImg,"Solution");
+                }else {
+                    adsNotLoaded.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -512,7 +514,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                     public void onUserEarnedReward(@NonNull RewardItem reward) {
                         // User earned reward.
                         ShowSolution(HintImg, "Hint");
-                        CountNoOfAds++;
                     }
 
                     @Override
@@ -520,7 +521,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                         // Ad failed to display.
                         try {
                             ShowSolution(HintImg, "Hint");
-                            CountNoOfAds++;
                             //adsNotLoaded.setVisibility(View.VISIBLE);
                         } catch (Exception ignored) {
                         }
@@ -533,7 +533,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         } else {
             try {
                 ShowSolution(HintImg, "Hint");
-                CountNoOfAds++;
                 //adsNotLoaded.setVisibility(View.VISIBLE);
             } catch (Exception ignored) {
             }
@@ -595,7 +594,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                     public void onUserEarnedReward(@NonNull RewardItem reward) {
                         // User earned reward.
                         ShowSolution(SolutionImg, "Solution");
-                        CountNoOfAds++;
                     }
 
                     @Override
@@ -603,7 +601,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                         // Ad failed to display.
                         try {
                             ShowSolution(SolutionImg, "Solution");
-                            CountNoOfAds++;
                             //adsNotLoaded.setVisibility(View.VISIBLE);
                         } catch (Exception ignored) {
                         }
@@ -617,7 +614,6 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
         } else {
             try {
                 ShowSolution(SolutionImg, "Solution");
-                CountNoOfAds++;
                 //adsNotLoaded.setVisibility(View.VISIBLE);
             } catch (Exception ignored) {
             }
@@ -711,13 +707,11 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
                     }
                 });
 
-            }
-
-
+        }
 
     }
 
-    private void DailyChecks(){
+    private void DailyChecksHint(){
 //        final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
 //        sweetAlertDialog.setTitle("Please wait");
 //        sweetAlertDialog.setCancelable(false);
@@ -730,19 +724,46 @@ public class Game_Screen extends AppCompatActivity implements View.OnClickListen
 
         String todayString = year + "" + month + "" + day;
 
-        SharedPreferences preferences1 = getSharedPreferences("PRESS",0);
-        boolean currentDay = preferences1.getBoolean(todayString,false);
+        sp = getSharedPreferences("MathsResoninngData", MODE_PRIVATE);
+        boolean currentDay = sp.getBoolean(todayString,false);
 
         if(!currentDay){
-            Toast.makeText(this,"You have only 1 chance to see Hint/Solution",Toast.LENGTH_LONG).show();
-            CountNoOfAds=0;
-            SharedPreferences.Editor editor1 = preferences1.edit();
-            editor1.putBoolean(todayString,true);
-            editor1.apply();
+            //Toast.makeText(this,"You have only 1 chance to see Hint/Solution",Toast.LENGTH_LONG).show();
+            CountNoOfAdsHint=1;
+            editor.putBoolean(todayString,true);
+            editor.apply();
         }else{
-            Toast.makeText(this, "You have seen today's Hint/Solution", Toast.LENGTH_SHORT).show();
+            CountNoOfAdsHint=2;
+            //Toast.makeText(this, "You have seen today's Hint/Solution", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void DailyChecksSolution(){
+//        final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+//        sweetAlertDialog.setTitle("Please wait");
+//        sweetAlertDialog.setCancelable(false);
+//        sweetAlertDialog.show();
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        String todayString1 = year + "" + month + "" + day+"1";
+
+        sp = getSharedPreferences("MathsResoninngData", MODE_PRIVATE);
+        boolean currentDay = sp.getBoolean(todayString1,false);
+
+        if(!currentDay){
+            //Toast.makeText(this,"You have only 1 chance to see Hint/Solution",Toast.LENGTH_LONG).show();
+            CountNoOfAdsSolution=1;
+            editor.putBoolean(todayString1,true);
+            editor.apply();
+        }else{
+            CountNoOfAdsSolution=2;
+            //Toast.makeText(this, "You have seen today's Hint/Solution", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

@@ -47,7 +47,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_margin="16dp"
                 android:fontFamily="@font/cantora_one"
-                android:text="Now you can use Only 6 hints/solutions in a day."
+                android:text="Now you can use Only 1 hint and 1 solution in a day."
                 tools:ignore="HardcodedText"
                 android:gravity="center"
                 android:textSize="22sp"
